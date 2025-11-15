@@ -1,3 +1,26 @@
+/**
+ * PÁGINA PRINCIPAL - DASHBOARD
+ * 
+ * Dashboard principal de la aplicación donde el usuario:
+ * - Ve su progreso diario en un círculo de progreso
+ * - Consulta sus metas calóricas (TMB, TDEE, déficit)
+ * - Agrega alimentos consumidos con búsqueda y selector
+ * - Ve la lista de alimentos del día
+ * - Recibe mensajes motivacionales según su progreso
+ * 
+ * Componentes principales:
+ * - Círculo de progreso (CircularProgressbar)
+ * - Estadísticas metabólicas
+ * - Formulario de búsqueda y selección de alimentos
+ * - Lista de alimentos consumidos hoy
+ * - Navegación a historial y configuración de tema
+ * 
+ * Estados:
+ * - selectedFood: alimento seleccionado del dropdown
+ * - quantity: número de porciones
+ * - searchTerm: filtro de búsqueda de alimentos
+ */
+
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
@@ -25,17 +48,24 @@ export default function Dashboard() {
   
   const navigate = useNavigate()
 
+  // Si no hay datos, mostrar cargando
   if (!user || !goals || !todayLog) {
     return <div className="loading">Cargando...</div>
   }
 
+  // Calcular porcentaje de meta cumplida
   const percentage = Math.round((todayLog.totalCalories / goals.tdee) * 100)
   const motivational = getMotivationalMessage(todayLog.totalCalories, goals.tdee)
   
+  // Filtrar alimentos según búsqueda
   const filteredFoods = FOODS_DATABASE.filter(food =>
     food.name.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
+  /**
+   * Maneja la adición de un alimento al registro.
+   * Crea una nueva entrada con el alimento y cantidad seleccionados.
+   */
   const handleAddFood = () => {
     if (!selectedFood) return
     
@@ -57,6 +87,12 @@ export default function Dashboard() {
     setSearchTerm('')
   }
 
+  /**
+   * Determina el color del círculo de progreso según porcentaje.
+   * - Verde: 90-110% (rango óptimo)
+   * - Rojo: >110% (exceso)
+   * - Amarillo: <90% (insuficiente)
+   */
   const getProgressColor = () => {
     if (percentage >= 90 && percentage <= 110) return '#10b981'
     if (percentage > 110) return '#ef4444'
@@ -71,6 +107,9 @@ export default function Dashboard() {
           <div className="nav-actions">
             <Button variant="ghost" size="sm" onClick={() => navigate('/history')}>
               📊 Historial
+            </Button>
+            <Button variant="ghost" size="sm" onClick={() => navigate('/settings')}>
+              ⚙️ Configuración
             </Button>
             <Button variant="ghost" size="sm" onClick={toggleTheme}>
               {theme === 'dark' ? '☀️' : '🌙'}
@@ -91,7 +130,7 @@ export default function Dashboard() {
         </div>
 
         <div className="dashboard-grid">
-          {/* Progress Circle */}
+          {/* Círculo de progreso */}
           <Card className="progress-card">
             <div className="progress-circle">
               <CircularProgressbar
@@ -126,7 +165,7 @@ export default function Dashboard() {
             </div>
           </Card>
 
-          {/* Calories Info */}
+          {/* Información metabólica */}
           <Card title="Tu metabolismo">
             <div className="metabolism-stats">
               <div className="metabolism-item">
@@ -146,7 +185,7 @@ export default function Dashboard() {
             </div>
           </Card>
 
-          {/* Add Food */}
+          {/* Formulario para agregar alimentos */}
           <Card title="Agregar alimento" className="add-food-card">
             <div className="add-food-form">
               <input
@@ -187,7 +226,7 @@ export default function Dashboard() {
             </div>
           </Card>
 
-          {/* Today's Foods */}
+          {/* Lista de alimentos consumidos hoy */}
           <Card title={`Alimentos de hoy (${todayLog.entries.length})`} className="foods-list-card">
             {todayLog.entries.length === 0 ? (
               <p className="empty-state">No has registrado alimentos hoy</p>

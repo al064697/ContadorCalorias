@@ -1,3 +1,19 @@
+/**
+ * COMPONENTE REUTILIZABLE - CARD
+ * 
+ * Tarjeta contenedora con estilo glassmorphism.
+ * 
+ * Props:
+ * - children: contenido de la tarjeta
+ * - className: clases CSS adicionales
+ * - title: título opcional de la tarjeta
+ * 
+ * Uso:
+ * <Card title="Mis estadísticas">
+ *   <p>Contenido aquí</p>
+ * </Card>
+ */
+
 import { ReactNode } from 'react'
 import './Card.css'
 

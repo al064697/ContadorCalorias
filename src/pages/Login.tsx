@@ -1,3 +1,20 @@
+/**
+ * PÁGINA DE INICIO DE SESIÓN
+ * 
+ * Permite a los usuarios autenticarse con email y contraseña.
+ * 
+ * Características:
+ * - Validación de campos requeridos
+ * - Manejo de errores (credenciales inválidas)
+ * - Estado de carga durante autenticación
+ * - Redirección al dashboard tras login exitoso
+ * - Link a página de registro
+ * 
+ * Seguridad:
+ * - Autocomplete apropiado para email y password
+ * - Password type="password" para ocultar caracteres
+ */
+
 import { useState, FormEvent } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
@@ -13,6 +30,10 @@ export default function Login() {
   const { login } = useAuth()
   const navigate = useNavigate()
 
+  /**
+   * Maneja el envío del formulario de login.
+   * Valida credenciales y redirige al dashboard si son correctas.
+   */
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setError('')

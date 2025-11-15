@@ -1,3 +1,20 @@
+/**
+ * PÁGINA DE HISTORIAL
+ * 
+ * Muestra el historial de consumo de calorías de los últimos 7 días.
+ * 
+ * Características:
+ * - Gráfica de líneas comparando consumo vs meta diaria
+ * - Lista detallada de cada día con:
+ *   - Fecha en español
+ *   - Porcentaje de meta cumplida
+ *   - Total de calorías consumidas vs objetivo
+ *   - Número de alimentos registrados
+ * - Badge de color según rendimiento (verde=bueno, amarillo=fuera de rango)
+ * 
+ * Usa Recharts para la visualización y date-fns para formateo de fechas.
+ */
+
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { useHistoricalLogs } from '../hooks/useDailyLog'
@@ -13,11 +30,13 @@ export default function History() {
   const logs = useHistoricalLogs(user?.id, 7)
   const navigate = useNavigate()
 
+  // Redirigir si no hay usuario
   if (!user) {
     navigate('/login')
     return null
   }
 
+  // Preparar datos para la gráfica
   const chartData = logs.reverse().map(log => ({
     date: format(new Date(log.date), 'dd MMM', { locale: es }),
     consumido: log.totalCalories,
@@ -34,6 +53,7 @@ export default function History() {
       </div>
 
       <div className="history-content">
+        {/* Gráfica comparativa de consumo vs meta */}
         <Card title="Gráfica de consumo">
           <div className="chart-container">
             <ResponsiveContainer width="100%" height={300}>
@@ -55,6 +75,7 @@ export default function History() {
           </div>
         </Card>
 
+        {/* Lista de registros diarios */}
         <Card title="Registros diarios">
           <div className="history-list">
             {logs.length === 0 ? (

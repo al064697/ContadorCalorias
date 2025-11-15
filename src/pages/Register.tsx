@@ -1,3 +1,25 @@
+/**
+ * PÁGINA DE REGISTRO
+ * 
+ * Permite crear una nueva cuenta de usuario con todos los datos necesarios.
+ * 
+ * Datos solicitados:
+ * - Información personal: nombre, email, contraseña
+ * - Datos físicos: edad, peso, altura
+ * - Datos de actividad: género, nivel de actividad física
+ * 
+ * Validaciones:
+ * - Email único (no duplicados)
+ * - Contraseña mínimo 6 caracteres
+ * - Rangos válidos para edad (15-100), peso (30-300), altura (100-250)
+ * 
+ * Características:
+ * - Formulario en dos columnas para mejor UX
+ * - Dropdown con descripciones de niveles de actividad
+ * - Redirección automática al dashboard tras registro exitoso
+ * - Link a página de login para usuarios existentes
+ */
+
 import { useState, FormEvent } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
@@ -23,6 +45,10 @@ export default function Register() {
   const { register } = useAuth()
   const navigate = useNavigate()
 
+  /**
+   * Maneja el envío del formulario de registro.
+   * Crea un nuevo usuario si el email no existe.
+   */
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setError('')

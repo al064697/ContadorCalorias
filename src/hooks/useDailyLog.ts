@@ -1,18 +1,48 @@
+/**
+ * HOOKS PERSONALIZADOS - REGISTRO DIARIO DE ALIMENTOS
+ * 
+ * Este módulo contiene dos hooks:
+ * 
+ * 1. useDailyLog: Gestiona el registro de alimentos del día actual
+ *    - Carga automáticamente el registro del día
+ *    - Permite agregar alimentos
+ *    - Permite eliminar alimentos
+ *    - Persiste en localStorage
+ * 
+ * 2. useHistoricalLogs: Obtiene registros de días anteriores
+ *    - Recupera logs de los últimos N días
+ *    - Ordena por fecha descendente
+ *    - Útil para gráficas y estadísticas
+ */
+
 import { useState, useEffect } from 'react'
 import { DailyLog, FoodEntry } from '../types'
 import { format } from 'date-fns'
 
 /**
- * Custom hook to manage daily food logs
+ * Hook para gestionar el registro diario de alimentos.
+ * 
+ * Funcionalidades:
+ * - Carga el registro del día actual al montar
+ * - Crea nuevo registro si no existe para hoy
+ * - Permite agregar entradas de alimentos
+ * - Permite eliminar entradas
+ * - Actualiza totalCalories automáticamente
+ * - Persiste cambios en localStorage
+ * 
+ * @param userId - ID del usuario actual
+ * @param targetCalories - Meta de calorías diarias
+ * @returns Objeto con todayLog, addEntry, removeEntry
  */
 export function useDailyLog(userId: string | undefined, targetCalories: number) {
   const [todayLog, setTodayLog] = useState<DailyLog | null>(null)
   const today = format(new Date(), 'yyyy-MM-dd')
 
+  // Al montar o cambiar usuario, cargar registro del día
   useEffect(() => {
     if (!userId) return
 
-    // Load today's log from localStorage
+    // Cargar registro de hoy desde localStorage
     const logsData = localStorage.getItem('dailyLogs')
     const allLogs: DailyLog[] = logsData ? JSON.parse(logsData) : []
     
@@ -21,7 +51,7 @@ export function useDailyLog(userId: string | undefined, targetCalories: number) 
     if (existingLog) {
       setTodayLog(existingLog)
     } else {
-      // Create new log for today
+      // Crear nuevo registro para hoy
       const newLog: DailyLog = {
         date: today,
         userId,
@@ -33,6 +63,10 @@ export function useDailyLog(userId: string | undefined, targetCalories: number) 
     }
   }, [userId, today, targetCalories])
 
+  /**
+   * Agrega una nueva entrada de alimento al registro.
+   * Actualiza el total de calorías automáticamente.
+   */
   const addEntry = (entry: FoodEntry) => {
     if (!todayLog || !userId) return
 
@@ -46,6 +80,10 @@ export function useDailyLog(userId: string | undefined, targetCalories: number) 
     saveLogs(updatedLog)
   }
 
+  /**
+   * Elimina una entrada de alimento del registro.
+   * Actualiza el total de calorías automáticamente.
+   */
   const removeEntry = (entryId: string) => {
     if (!todayLog) return
 
@@ -62,6 +100,10 @@ export function useDailyLog(userId: string | undefined, targetCalories: number) 
     saveLogs(updatedLog)
   }
 
+  /**
+   * Guarda el registro en localStorage.
+   * Actualiza el registro existente o crea uno nuevo.
+   */
   const saveLogs = (log: DailyLog) => {
     const logsData = localStorage.getItem('dailyLogs')
     const allLogs: DailyLog[] = logsData ? JSON.parse(logsData) : []
@@ -85,7 +127,19 @@ export function useDailyLog(userId: string | undefined, targetCalories: number) 
 }
 
 /**
- * Get historical logs for a user
+ * Hook para obtener registros históricos del usuario.
+ * 
+ * Recupera los últimos N días de registros del usuario,
+ * ordenados por fecha descendente (más reciente primero).
+ * 
+ * Útil para:
+ * - Mostrar gráficas de progreso
+ * - Análisis de tendencias
+ * - Página de historial
+ * 
+ * @param userId - ID del usuario actual
+ * @param days - Número de días a recuperar (default: 7)
+ * @returns Array de DailyLog ordenado por fecha
  */
 export function useHistoricalLogs(userId: string | undefined, days: number = 7) {
   const [logs, setLogs] = useState<DailyLog[]>([])
@@ -96,7 +150,7 @@ export function useHistoricalLogs(userId: string | undefined, days: number = 7) 
     const logsData = localStorage.getItem('dailyLogs')
     const allLogs: DailyLog[] = logsData ? JSON.parse(logsData) : []
     
-    // Filter logs for this user and sort by date
+    // Filtrar logs de este usuario y ordenar por fecha
     const userLogs = allLogs
       .filter(log => log.userId === userId)
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
