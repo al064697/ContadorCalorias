@@ -4,15 +4,109 @@
  * Este módulo contiene todas las funciones relacionadas con cálculos de calorías y nutrición:
  * - TMB (Tasa Metabólica Basal): calorías que el cuerpo quema en reposo
  * - TDEE (Gasto Energético Total Diario): calorías totales según actividad
+ * - IMC (Índice de Masa Corporal): clasificación de peso
  * - Metas calóricas: para mantener, perder o ganar peso
+ * - Macronutrientes: distribución de carbohidratos, proteínas y grasas
  * - Mensajes motivacionales según progreso
  * - Funciones auxiliares (formateo, generación de IDs)
  * 
  * Usa la ecuación de Harris-Benedict para cálculo del TMB.
  */
 
-import { Gender, ActivityLevel, CalorieGoals } from '../types'
-import { ACTIVITY_MULTIPLIERS } from './constants'
+import { Gender, ActivityLevel, CalorieGoals, WeightCategory } from '../types'
+import { ACTIVITY_MULTIPLIERS, IMC_RANGES } from './constants'
+
+/**
+ * Calcula el Índice de Masa Corporal (IMC/BMI).
+ * 
+ * Fórmula: IMC = peso (kg) / altura (m)²
+ * 
+ * @param weight - Peso en kilogramos
+ * @param height - Altura en centímetros
+ * @returns IMC redondeado a un decimal
+ */
+export function calculateIMC(weight: number, height: number): number {
+  const heightInMeters = height / 100
+  return Math.round((weight / (heightInMeters * heightInMeters)) * 10) / 10
+}
+
+/**
+ * Determina la categoría de peso según el IMC.
+ * 
+ * Rangos según OMS:
+ * - Bajo peso: < 18.5
+ * - Normal: 18.5 - 24.9
+ * - Sobrepeso: 25 - 29.9
+ * - Obesidad: ≥ 30
+ * 
+ * @param imc - Índice de Masa Corporal
+ * @returns Categoría de peso
+ */
+export function getWeightCategory(imc: number): WeightCategory {
+  if (imc < IMC_RANGES.underweight.max) {
+    return 'underweight'
+  } else if (imc < IMC_RANGES.normal.max) {
+    return 'normal'
+  } else if (imc < IMC_RANGES.overweight.max) {
+    return 'overweight'
+  } else {
+    return 'obese'
+  }
+}
+
+/**
+ * Calcula la distribución recomendada de macronutrientes en gramos.
+ * 
+ * Distribución estándar según guía nutricional:
+ * - Carbohidratos: 50-60% de calorías (4 kcal/g)
+ * - Proteínas: 15-20% de calorías (4 kcal/g)
+ * - Grasas: 25-30% de calorías (9 kcal/g)
+ * 
+ * @param totalCalories - Calorías totales diarias
+ * @returns Objeto con gramos de cada macronutriente
+ */
+export function calculateMacroTargets(totalCalories: number): {
+  carbs: number
+  protein: number
+  fat: number
+} {
+  // Carbohidratos: 55% de calorías / 4 kcal por gramo
+  const carbs = Math.round((totalCalories * 0.55) / 4)
+  
+  // Proteínas: 20% de calorías / 4 kcal por gramo
+  const protein = Math.round((totalCalories * 0.20) / 4)
+  
+  // Grasas: 25% de calorías / 9 kcal por gramo
+  const fat = Math.round((totalCalories * 0.25) / 9)
+  
+  return { carbs, protein, fat }
+}
+
+/**
+ * Calcula el porcentaje de cada macronutriente del total de calorías.
+ * 
+ * @param carbs - Gramos de carbohidratos
+ * @param protein - Gramos de proteínas
+ * @param fat - Gramos de grasas
+ * @returns Objeto con porcentaje de cada macro
+ */
+export function getMacroDistribution(
+  carbs: number,
+  protein: number,
+  fat: number
+): {
+  carbsPercent: number
+  proteinPercent: number
+  fatPercent: number
+} {
+  const totalCalories = (carbs * 4) + (protein * 4) + (fat * 9)
+  
+  return {
+    carbsPercent: Math.round(((carbs * 4) / totalCalories) * 100),
+    proteinPercent: Math.round(((protein * 4) / totalCalories) * 100),
+    fatPercent: Math.round(((fat * 9) / totalCalories) * 100)
+  }
+}
 
 /**
  * Calcula la Tasa Metabólica Basal (TMB/BMR) usando la ecuación de Harris-Benedict.
@@ -62,13 +156,16 @@ export function calculateTDEE(bmr: number, activityLevel: ActivityLevel): number
  * - TDEE: calorías para mantener peso actual
  * - Déficit (85% del TDEE): calorías para perder peso
  * - Superávit (115% del TDEE): calorías para ganar peso
+ * - IMC: índice de masa corporal
+ * - Categoría de peso según IMC
+ * - Macronutrientes: distribución de carbos, proteínas y grasas en gramos
  * 
  * @param weight - Peso en kg
  * @param height - Altura en cm
  * @param age - Edad en años
  * @param gender - Género
  * @param activityLevel - Nivel de actividad
- * @returns Objeto con todas las metas calóricas
+ * @returns Objeto con todas las metas calóricas y nutricionales
  */
 export function getCalorieGoals(
   weight: number,
@@ -79,12 +176,20 @@ export function getCalorieGoals(
 ): CalorieGoals {
   const bmr = calculateBMR(weight, height, age, gender)
   const tdee = calculateTDEE(bmr, activityLevel)
+  const imc = calculateIMC(weight, height)
+  const weightCategory = getWeightCategory(imc)
+  const macros = calculateMacroTargets(tdee)
   
   return {
     bmr: Math.round(bmr),
     tdee: Math.round(tdee),
     deficit: Math.round(tdee * 0.85), // 15% de déficit para pérdida de peso
-    surplus: Math.round(tdee * 1.15)  // 15% de superávit para ganancia de peso
+    surplus: Math.round(tdee * 1.15), // 15% de superávit para ganancia de peso
+    imc,
+    weightCategory,
+    carbs: macros.carbs,
+    protein: macros.protein,
+    fat: macros.fat
   }
 }
 

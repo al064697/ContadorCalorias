@@ -48,9 +48,42 @@ export const CATEGORY_LABELS = {
   'fruits': '🍎 Frutas',
   'vegetables': '🥗 Verduras',
   'proteins': '🍗 Proteínas',
-  'grains': '🌾 Granos',
+  'grains': '🌾 Cereales y tubérculos',
   'dairy': '🥛 Lácteos',
   'snacks': '🍪 Snacks',
   'beverages': '🥤 Bebidas',
+  'legumes': '🫘 Leguminosas',
+  'healthy-fats': '🥑 Grasas saludables',
+  'high-calorie-avoid': '⚠️ Alto en calorías (evitar)',
+  'free-foods': '✅ Alimentos libres',
   'other': '🍽️ Otros'
+}
+
+/**
+ * Etiquetas de semáforo nutricional.
+ */
+export const TRAFFIC_LIGHT_LABELS = {
+  'green': '🟢 Consumo libre',
+  'yellow': '🟡 Consumo moderado',
+  'red': '🔴 Evitar o limitar'
+}
+
+/**
+ * Categorías de peso según IMC.
+ */
+export const WEIGHT_CATEGORY_LABELS = {
+  'underweight': 'Bajo peso',
+  'normal': 'Peso normal',
+  'overweight': 'Sobrepeso',
+  'obese': 'Obesidad'
+}
+
+/**
+ * Rangos de IMC.
+ */
+export const IMC_RANGES = {
+  underweight: { min: 0, max: 18.5 },
+  normal: { min: 18.5, max: 25 },
+  overweight: { min: 25, max: 30 },
+  obese: { min: 30, max: 100 }
 }

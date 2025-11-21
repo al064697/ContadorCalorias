@@ -27,14 +27,19 @@ import { format } from 'date-fns'
  * - Crea nuevo registro si no existe para hoy
  * - Permite agregar entradas de alimentos
  * - Permite eliminar entradas
- * - Actualiza totalCalories automáticamente
+ * - Actualiza totalCalories y macronutrientes automáticamente
  * - Persiste cambios en localStorage
  * 
  * @param userId - ID del usuario actual
  * @param targetCalories - Meta de calorías diarias
+ * @param targetMacros - Meta de macronutrientes (opcional)
  * @returns Objeto con todayLog, addEntry, removeEntry
  */
-export function useDailyLog(userId: string | undefined, targetCalories: number) {
+export function useDailyLog(
+  userId: string | undefined, 
+  targetCalories: number,
+  targetMacros?: { carbs: number; protein: number; fat: number }
+) {
   const [todayLog, setTodayLog] = useState<DailyLog | null>(null)
   const today = format(new Date(), 'yyyy-MM-dd')
 
@@ -57,15 +62,21 @@ export function useDailyLog(userId: string | undefined, targetCalories: number) 
         userId,
         entries: [],
         totalCalories: 0,
-        targetCalories
+        totalCarbs: 0,
+        totalProtein: 0,
+        totalFat: 0,
+        targetCalories,
+        targetCarbs: targetMacros?.carbs || 0,
+        targetProtein: targetMacros?.protein || 0,
+        targetFat: targetMacros?.fat || 0
       }
       setTodayLog(newLog)
     }
-  }, [userId, today, targetCalories])
+  }, [userId, today, targetCalories, targetMacros])
 
   /**
    * Agrega una nueva entrada de alimento al registro.
-   * Actualiza el total de calorías automáticamente.
+   * Actualiza el total de calorías y macronutrientes automáticamente.
    */
   const addEntry = (entry: FoodEntry) => {
     if (!todayLog || !userId) return
@@ -73,7 +84,10 @@ export function useDailyLog(userId: string | undefined, targetCalories: number) 
     const updatedLog: DailyLog = {
       ...todayLog,
       entries: [...todayLog.entries, entry],
-      totalCalories: todayLog.totalCalories + entry.calories
+      totalCalories: todayLog.totalCalories + entry.calories,
+      totalCarbs: todayLog.totalCarbs + entry.carbs,
+      totalProtein: todayLog.totalProtein + entry.protein,
+      totalFat: todayLog.totalFat + entry.fat
     }
 
     setTodayLog(updatedLog)
@@ -82,7 +96,7 @@ export function useDailyLog(userId: string | undefined, targetCalories: number) 
 
   /**
    * Elimina una entrada de alimento del registro.
-   * Actualiza el total de calorías automáticamente.
+   * Actualiza el total de calorías y macronutrientes automáticamente.
    */
   const removeEntry = (entryId: string) => {
     if (!todayLog) return
@@ -93,7 +107,10 @@ export function useDailyLog(userId: string | undefined, targetCalories: number) 
     const updatedLog: DailyLog = {
       ...todayLog,
       entries: todayLog.entries.filter(e => e.id !== entryId),
-      totalCalories: todayLog.totalCalories - removedEntry.calories
+      totalCalories: todayLog.totalCalories - removedEntry.calories,
+      totalCarbs: todayLog.totalCarbs - removedEntry.carbs,
+      totalProtein: todayLog.totalProtein - removedEntry.protein,
+      totalFat: todayLog.totalFat - removedEntry.fat
     }
 
     setTodayLog(updatedLog)

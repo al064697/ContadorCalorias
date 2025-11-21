@@ -34,13 +34,18 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
+import MacronutrientBars from '../components/MacronutrientBars'
 import './Dashboard.css'
 
 export default function Dashboard() {
   const { user, logout } = useAuth()
   const { theme, toggleTheme } = useTheme()
   const goals = useCaloriesCalculator(user)
-  const { todayLog, addEntry, removeEntry } = useDailyLog(user?.id, goals?.tdee || 2000)
+  const { todayLog, addEntry, removeEntry } = useDailyLog(
+    user?.id, 
+    goals?.tdee || 2000,
+    goals ? { carbs: goals.carbs, protein: goals.protein, fat: goals.fat } : undefined
+  )
   
   const [selectedFood, setSelectedFood] = useState('')
   const [quantity, setQuantity] = useState(1)
@@ -77,6 +82,10 @@ export default function Dashboard() {
       foodId: food.id,
       foodName: food.name,
       calories: Math.round(food.calories * quantity),
+      carbs: Math.round(food.carbs * quantity * 10) / 10,
+      protein: Math.round(food.protein * quantity * 10) / 10,
+      fat: Math.round(food.fat * quantity * 10) / 10,
+      trafficLight: food.trafficLight,
       quantity,
       timestamp: new Date().toISOString()
     }
@@ -97,6 +106,22 @@ export default function Dashboard() {
     if (percentage >= 90 && percentage <= 110) return '#10b981'
     if (percentage > 110) return '#ef4444'
     return '#f59e0b'
+  }
+
+  /**
+   * Obtiene el emoji del semáforo nutricional.
+   */
+  const getTrafficLightEmoji = (trafficLight: 'green' | 'yellow' | 'red') => {
+    switch (trafficLight) {
+      case 'green':
+        return '🟢'
+      case 'yellow':
+        return '🟡'
+      case 'red':
+        return '🔴'
+      default:
+        return '⚪'
+    }
   }
 
   return (
@@ -182,7 +207,27 @@ export default function Dashboard() {
                   <span className="metabolism-value">{formatCalories(goals.deficit)}</span>
                 </div>
               )}
+              <div className="metabolism-item">
+                <span className="metabolism-label">IMC</span>
+                <span className="metabolism-value">{goals.imc}</span>
+              </div>
             </div>
+          </Card>
+
+          {/* Macronutrientes */}
+          <Card title="Macronutrientes" className="macros-card">
+            <MacronutrientBars
+              consumed={{
+                carbs: todayLog.totalCarbs,
+                protein: todayLog.totalProtein,
+                fat: todayLog.totalFat
+              }}
+              target={{
+                carbs: goals.carbs,
+                protein: goals.protein,
+                fat: goals.fat
+              }}
+            />
           </Card>
 
           {/* Formulario para agregar alimentos */}
@@ -234,24 +279,34 @@ export default function Dashboard() {
               <ul className="foods-list">
                 {todayLog.entries.map(entry => (
                   <li key={entry.id} className="food-entry">
-                    <div className="food-entry-info">
-                      <strong>{entry.foodName}</strong>
-                      <span className="food-entry-quantity">
-                        {entry.quantity}x • {new Date(entry.timestamp).toLocaleTimeString('es', {
-                          hour: '2-digit',
-                          minute: '2-digit'
-                        })}
-                      </span>
+                    <div className="food-entry-main">
+                      <div className="food-entry-info">
+                        <span className="traffic-light">{getTrafficLightEmoji(entry.trafficLight)}</span>
+                        <div>
+                          <strong>{entry.foodName}</strong>
+                          <span className="food-entry-quantity">
+                            {entry.quantity}x • {new Date(entry.timestamp).toLocaleTimeString('es', {
+                              hour: '2-digit',
+                              minute: '2-digit'
+                            })}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="food-entry-actions">
+                        <span className="food-entry-calories">{entry.calories} kcal</span>
+                        <button
+                          onClick={() => removeEntry(entry.id)}
+                          className="remove-btn"
+                          aria-label={`Eliminar ${entry.foodName}`}
+                        >
+                          ✕
+                        </button>
+                      </div>
                     </div>
-                    <div className="food-entry-actions">
-                      <span className="food-entry-calories">{entry.calories} kcal</span>
-                      <button
-                        onClick={() => removeEntry(entry.id)}
-                        className="remove-btn"
-                        aria-label={`Eliminar ${entry.foodName}`}
-                      >
-                        ✕
-                      </button>
+                    <div className="food-entry-macros">
+                      <span className="macro-badge macro-badge-carbs">C: {entry.carbs}g</span>
+                      <span className="macro-badge macro-badge-protein">P: {entry.protein}g</span>
+                      <span className="macro-badge macro-badge-fat">G: {entry.fat}g</span>
                     </div>
                   </li>
                 ))}

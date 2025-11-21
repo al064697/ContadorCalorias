@@ -1,0 +1,93 @@
+/**
+ * ESTILOS - BARRAS DE MACRONUTRIENTES
+ */
+
+.macronutrient-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.macro-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.macro-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.macro-label {
+  font-weight: 600;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.macro-values {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.macro-bar-container {
+  width: 100%;
+  height: 12px;
+  background: var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+
+.macro-bar {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.3s ease;
+  background: linear-gradient(90deg, var(--macro-color-start), var(--macro-color-end));
+}
+
+/* Colores específicos para cada macronutriente */
+.macro-bar-carbs {
+  --macro-color-start: #f59e0b;
+  --macro-color-end: #f97316;
+  background: linear-gradient(90deg, #f59e0b, #f97316);
+}
+
+.macro-bar-protein {
+  --macro-color-start: #3b82f6;
+  --macro-color-end: #2563eb;
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+}
+
+.macro-bar-fat {
+  --macro-color-start: #10b981;
+  --macro-color-end: #059669;
+  background: linear-gradient(90deg, #10b981, #059669);
+}
+
+.macro-percent {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-align: right;
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .macronutrient-bars {
+    gap: 1.25rem;
+  }
+  
+  .macro-header {
+    font-size: 0.8125rem;
+  }
+  
+  .macro-values {
+    font-size: 0.8125rem;
+  }
+}

@@ -212,11 +212,11 @@
 
 .food-entry {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   padding: 16px;
   border-bottom: 1px solid var(--border);
   transition: background 0.2s;
+  gap: 12px;
 }
 
 .food-entry:hover {
@@ -227,14 +227,70 @@
   border-bottom: none;
 }
 
+.food-entry-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.food-entry-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1;
+}
+
+.food-entry-info > div {
+  display: flex;
+  flex-direction: column;
+}
+
 .food-entry-info strong {
   display: block;
   margin-bottom: 4px;
 }
 
+.traffic-light {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
 .food-entry-quantity {
   font-size: 0.85rem;
   color: var(--text-muted);
+}
+
+.food-entry-macros {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-left: 32px;
+}
+
+.macro-badge {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.macro-badge-carbs {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.macro-badge-protein {
+  background: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.macro-badge-fat {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
 .food-entry-actions {
