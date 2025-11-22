@@ -1,1032 +1,359 @@
-# 🥗 Contador de Calorías - Aplicación de Nutrición Avanzada
+# 🥗 Contador de Calorías
 
-Aplicación web profesional para el monitoreo integral de nutrición, diseñada para proporcionar un seguimiento completo de calorías, macronutrientes y salud metabólica. Desarrollada con React 18, TypeScript y arquitectura moderna de componentes.
-
----
-
-## 📊 Descripción del Sistema
-
-**Contador de Calorías** es una plataforma integral de seguimiento nutricional que combina cálculos metabólicos científicos con una interfaz intuitiva para ayudar a los usuarios a alcanzar sus objetivos de salud. El sistema utiliza ecuaciones validadas médicamente (Harris-Benedict) y estándares nutricionales oficiales para proporcionar recomendaciones personalizadas.
-
-### Filosofía del Proyecto
-
-Este proyecto nace de la necesidad de democratizar el acceso a herramientas nutricionales profesionales, ofreciendo:
-
-- **Precisión científica**: Cálculos basados en fórmulas médicas establecidas
-- **Educación nutricional**: Sistema de semáforo nutricional intuitivo
-- **Personalización total**: Adaptación a perfil, objetivos y estilo de vida de cada usuario
-- **Transparencia**: Toda la información nutricional visible y explicada
-- **Accesibilidad**: Interfaz simple para usuarios de todos los niveles
+Aplicación web para monitoreo de nutrición con cálculos metabólicos científicos. Desarrollada con React 18 + TypeScript.
 
 ---
 
-## 🎯 Características Principales del Sistema
+## 🎯 Características
 
-### 1. Motor de Cálculo Metabólico
+### Cálculos Metabólicos
+- **TMB (Tasa Metabólica Basal)**: Ecuación Harris-Benedict revisada
+- **TDEE (Gasto Energético Total)**: TMB ajustado por nivel de actividad
+- **IMC**: Clasificación según estándares OMS
+- **Metas personalizadas**: Mantenimiento, déficit (-15%), superávit (+15%)
 
-El corazón del sistema es su motor de cálculos nutricionales que implementa:
+### Seguimiento Nutricional
+- **Base de datos**: 80+ alimentos comunes con información nutricional completa
+- **Macronutrientes**: Tracking de carbohidratos (55%), proteínas (20%), grasas (25%)
+- **Semáforo nutricional**: Clasificación verde/amarillo/rojo por calidad
+- **Registro diario**: Historial completo con análisis por fecha
 
-#### **Tasa Metabólica Basal (TMB/BMR)**
-Calcula las calorías que el cuerpo quema en reposo absoluto usando la **Ecuación de Harris-Benedict Revisada**:
-
-- **Para hombres**: `88.362 + (13.397 × peso_kg) + (4.799 × altura_cm) - (5.677 × edad)`
-- **Para mujeres**: `447.593 + (9.247 × peso_kg) + (3.098 × altura_cm) - (4.330 × edad)`
-
-Esta fórmula considera las diferencias metabólicas entre géneros y la reducción del metabolismo con la edad.
-
-#### **Gasto Energético Total Diario (TDEE)**
-Ajusta el TMB según el nivel de actividad física del usuario mediante multiplicadores validados:
-
-| Nivel de Actividad | Multiplicador | Descripción |
-|-------------------|---------------|-------------|
-| Sedentario | 1.2 | Poco o ningún ejercicio, trabajo de oficina |
-| Ligero | 1.375 | Ejercicio ligero 1-3 días/semana |
-| Moderado | 1.55 | Ejercicio moderado 3-5 días/semana |
-| Activo | 1.725 | Ejercicio intenso 6-7 días/semana |
-| Muy Activo | 1.9 | Ejercicio muy intenso, trabajo físico o entrenamiento 2 veces/día |
-
-#### **Índice de Masa Corporal (IMC)**
-Calcula y categoriza el peso corporal según estándares de la OMS:
-
-- **Fórmula**: `IMC = peso (kg) / altura (m)²`
-- **Categorías**:
-  - Bajo peso: IMC < 18.5
-  - Normal: 18.5 ≤ IMC < 25
-  - Sobrepeso: 25 ≤ IMC < 30
-  - Obesidad: IMC ≥ 30
-
-#### **Metas Calóricas Personalizadas**
-El sistema genera tres metas automáticamente:
-
-- **Mantenimiento**: TDEE (mantener peso actual)
-- **Déficit**: 85% del TDEE (perder peso de forma saludable: ~0.5kg/semana)
-- **Superávit**: 115% del TDEE (ganar masa muscular: ~0.25kg/semana)
-
+### Interfaz
+- **Dashboard interactivo**: Círculo de progreso, estadísticas del día, gráficas de macros
+- **Sistema de iconos**: 40+ iconos SVG personalizados organizados en categorías
+- **Temas**: Modo claro y oscuro con persistencia
+- **Responsive**: Diseño adaptable a móviles, tablets y desktop
 
 ---
 
-### 2. Sistema de Macronutrientes
+## 🚀 Tecnologías
 
-Implementa un seguimiento completo de los tres macronutrientes esenciales:
+**Frontend:**
+- React 18.2 (Hooks, Context API)
+- TypeScript 5.1
+- React Router 6.20
+- Recharts 2.10 (gráficas)
+- React Circular Progressbar 2.1
 
-#### **Distribución Estándar**
-Basada en recomendaciones de organismos de salud internacionales:
+**Herramientas:**
+- Vite 5.0 (build tool)
+- ESLint + Prettier
+- Vitest + Testing Library
 
-- **Carbohidratos**: 55% de calorías totales
-  - Conversión: `(calorías × 0.55) / 4 kcal/g`
-  - Función: Fuente principal de energía rápida
-  
-- **Proteínas**: 20% de calorías totales
-  - Conversión: `(calorías × 0.20) / 4 kcal/g`
-  - Función: Construcción y reparación de tejidos
-  
-- **Grasas**: 25% de calorías totales
-  - Conversión: `(calorías × 0.25) / 9 kcal/g`
-  - Función: Energía de reserva, absorción de vitaminas, hormonas
-
-#### **Seguimiento en Tiempo Real**
-El sistema calcula automáticamente:
-
-- Total de gramos consumidos de cada macronutriente
-- Porcentaje de meta diaria cumplida
-- Distribución calórica real vs recomendada
-- Balance entre macros
-
-#### **Visualización de Macros**
-Componente `MacronutrientBars` que muestra:
-
-- Barras de progreso con gradientes de color distintivos
-- Valores numéricos (consumido/meta en gramos)
-- Porcentaje de completitud
-- Código de colores:
-  - 🟠 Naranja: Carbohidratos
-  - 🔵 Azul: Proteínas
-  - 🟢 Verde: Grasas
+**Persistencia:**
+- LocalStorage para datos de usuario y logs
 
 ---
 
-### 3. Sistema de Semáforo Nutricional
+## 📦 Instalación
 
-Basado en la **Guía de Alimentos para la Población Mexicana**, clasifica los alimentos en tres categorías:
+```bash
+# Clonar repositorio
+git clone https://github.com/al064697/ContadorCalorias.git
+cd ContadorCalorias
 
-#### **🟢 Verde - Consumo Libre**
-Alimentos nutritivos de bajo contenido calórico que pueden consumirse sin restricción:
+# Instalar dependencias
+npm install
 
-- **Frutas**: Manzana, naranja, sandía, papaya, pera
-- **Verduras**: Brócoli, espinaca, lechuga, pepino, nopales, calabacita
-- **Proteínas magras**: Pechuga de pollo sin piel, pescado blanco, claras de huevo, pavo
-- **Leguminosas**: Frijoles, lentejas, garbanzos, habas
-- **Lácteos bajos en grasa**: Leche descremada, yogurt natural bajo en grasa, queso cottage
-- **Granos integrales**: Arroz integral, quinoa, avena, camote
+# Desarrollo
+npm run dev
 
-**Características**: Alto contenido de fibra, vitaminas, minerales. Bajo en grasas saturadas y azúcares añadidos.
+# Build producción
+npm run build
 
-#### **🟡 Amarillo - Consumo Moderado**
-Alimentos nutritivos pero con mayor densidad calórica. Consumir en porciones controladas:
+# Preview producción
+npm run preview
 
-- **Frutas dulces**: Plátano, uvas, mango
-- **Proteínas con grasa**: Huevo entero, salmón, carne de res magra
-- **Lácteos**: Leche semidescremada, yogurt griego, queso panela
-- **Granos refinados**: Arroz blanco, pasta, tortillas de maíz, papa
-- **Grasas saludables**: Aguacate, almendras, nueces, aceite de oliva, cacahuates
-
-**Características**: Mayor contenido calórico pero con beneficios nutricionales. Requieren control de porciones.
-
-#### **🔴 Rojo - Evitar o Limitar**
-Alimentos de alto contenido calórico, grasas saturadas, azúcares o sodio. Consumo ocasional:
-
-- **Alimentos procesados**: Papas fritas, donas, galletas de chocolate
-- **Comida rápida**: Pizza, hamburguesas, hot dogs
-- **Postres**: Helado, chocolate con leche
-- **Lácteos altos en grasa**: Queso cheddar, leche entera
-- **Bebidas azucaradas**: Refrescos, jugos comerciales, cerveza
-- **Granos refinados**: Pan blanco
-
-**Características**: Alto en calorías vacías, grasas trans, azúcares refinados. Mínimo valor nutricional.
+# Tests
+npm test
+```
 
 ---
 
-### 4. Base de Datos Nutricional Completa
+## 🏗️ Arquitectura
 
-#### **Alcance de la Base de Datos**
-La aplicación incluye una base de datos curada con **más de 80 alimentos** comunes en la alimentación, cada uno con información nutricional completa y verificada.
+```
+src/
+├── components/         # Componentes reutilizables
+│   ├── icons/         # Sistema de iconos SVG
+│   └── ui/            # Componentes UI base
+├── contexts/          # React Context (Auth, Theme)
+├── data/              # Base de datos de alimentos
+├── hooks/             # Custom hooks
+├── pages/             # Páginas principales
+├── types/             # TypeScript interfaces
+└── utils/             # Funciones helper
+```
 
-#### **Categorías de Alimentos** (12 categorías)
+### Componentes Principales
 
-1. **🍎 Frutas** (10 alimentos)
-   - Alimentos dulces naturales ricos en vitaminas y fibra
-   - Ejemplos: Manzana, plátano, naranja, fresa, sandía
+**`Dashboard.tsx`**: Panel principal con círculo de progreso, estadísticas y registro de alimentos
 
-2. **🥗 Verduras** (10 alimentos)
-   - Base de una alimentación saludable
-   - Ejemplos: Brócoli, zanahoria, espinaca, tomate, calabacita
+**`History.tsx`**: Historial de días con logs expandibles
 
-3. **🍗 Proteínas** (8 alimentos)
-   - Fuentes de proteína animal magra
-   - Ejemplos: Pollo, pescado, atún, huevo, carne de res
+**`Settings.tsx`**: Configuración de perfil y preferencias
 
-4. **🫘 Leguminosas** (5 alimentos)
-   - Proteína vegetal y fibra
-   - Ejemplos: Frijoles negros, lentejas, garbanzos, habas
+**`MacronutrientBars.tsx`**: Barras de progreso de macros
 
-5. **🌾 Cereales y Tubérculos** (10 alimentos)
-   - Fuente principal de energía
-   - Ejemplos: Arroz, pasta, avena, quinoa, papa, camote, tortilla
+### Contextos
 
-6. **🥛 Lácteos** (8 alimentos)
-   - Calcio y proteína
-   - Ejemplos: Leche, yogurt, queso en distintas presentaciones
+**`AuthContext`**: Gestión de autenticación y perfil de usuario
 
-7. **🥑 Grasas Saludables** (6 alimentos)
-   - Grasas mono y poliinsaturadas
-   - Ejemplos: Aguacate, almendras, nueces, aceite de oliva, chía
+**`ThemeContext`**: Tema visual (light/dark)
 
-8. **⚠️ Alimentos Altos en Calorías** (8 alimentos)
-   - Para limitar su consumo
-   - Ejemplos: Papas fritas, galletas, chocolate, pizza, donas, helado
+### Custom Hooks
 
-9. **🥤 Bebidas** (8 alimentos)
-   - Desde agua hasta bebidas calóricas
-   - Ejemplos: Agua, café, té, jugos, refrescos, cerveza
+**`useCaloriesCalculator`**: Cálculos metabólicos (TMB, TDEE, IMC)
 
-10. **✅ Alimentos Libres** (3 alimentos)
-    - Verduras de muy bajo contenido calórico
-    - Ejemplos: Lechuga, pepino, nopales
+**`useDailyLog`**: Gestión de registro diario de alimentos
 
-#### **Información por Alimento**
-Cada entrada incluye:
+---
 
-- **ID único**: Identificador del alimento
-- **Nombre**: Denominación común
-- **Calorías**: Kilocalorías por porción
-- **Carbohidratos**: Gramos totales
-- **Proteínas**: Gramos totales
-- **Grasas**: Gramos totales
-- **Fibra**: Gramos (cuando aplica)
-- **Semáforo**: Clasificación verde/amarillo/rojo
-- **Tipo de grasa**: Categorización (cuando aplica):
-  - Monoinsaturada (aguacate, aceite de oliva)
-  - Poliinsaturada (pescado, nueces)
-  - Saturada (carnes, lácteos)
-  - Trans (alimentos procesados)
-- **Categoría**: Grupo alimenticio
-- **Porción**: Tamaño estándar (ej: "100g (1 mediana)")
+## 🔢 Fórmulas Principales
 
-#### **Ejemplo de Registro Completo**
+### Tasa Metabólica Basal (TMB)
+```typescript
+// Hombres
+TMB = 88.362 + (13.397 × peso_kg) + (4.799 × altura_cm) - (5.677 × edad)
 
+// Mujeres
+TMB = 447.593 + (9.247 × peso_kg) + (3.098 × altura_cm) - (4.330 × edad)
+```
+
+### Gasto Energético Total (TDEE)
+```typescript
+TDEE = TMB × factor_actividad
+
+Factores:
+- Sedentario: 1.2
+- Ligero: 1.375
+- Moderado: 1.55
+- Activo: 1.725
+- Muy Activo: 1.9
+```
+
+### Índice de Masa Corporal (IMC)
+```typescript
+IMC = peso_kg / (altura_m)²
+
+Categorías:
+- < 18.5: Bajo peso
+- 18.5-24.9: Normal
+- 25-29.9: Sobrepeso
+- ≥ 30: Obesidad
+```
+
+### Macronutrientes
+```typescript
+Carbohidratos = (calorías × 0.55) / 4  // gramos
+Proteínas = (calorías × 0.20) / 4      // gramos
+Grasas = (calorías × 0.25) / 9         // gramos
+```
+
+---
+
+## 🎨 Sistema de Iconos
+
+40+ iconos SVG personalizados organizados en 6 categorías:
+
+- **Semáforo**: Verde, amarillo, rojo (indicadores nutricionales)
+- **Categorías**: 9 tipos de alimentos (frutas, verduras, proteínas, etc.)
+- **Macros**: Carbohidratos, proteínas, grasas
+- **Estado**: Objetivo, fuerza, tendencias, energía
+- **Navegación**: Dashboard, historial, configuración, tema
+- **Acciones**: Agregar, eliminar, editar, guardar
+
+**Componente base**: `Icon.tsx` con props TypeScript para tamaño, color y eventos
+
+Ver documentación completa en [ICONOS.md](./ICONOS.md)
+
+---
+
+## 📊 Base de Datos de Alimentos
+
+80+ alimentos organizados por categorías:
+
+- **Frutas**: Manzana, plátano, naranja, etc.
+- **Verduras**: Lechuga, espinaca, brócoli, etc.
+- **Proteínas**: Pollo, res, pescado, huevos, etc.
+- **Carbohidratos**: Arroz, pasta, pan, tortilla, etc.
+- **Lácteos**: Leche, yogurt, queso, etc.
+- **Legumbres**: Frijoles, lentejas, garbanzos, etc.
+- **Grasas saludables**: Aguacate, nueces, aceite de oliva, etc.
+- **Bebidas**: Agua, café, té, jugos, etc.
+- **Alto en calorías**: Pizza, hamburguesa, refrescos, etc.
+
+**Estructura de cada alimento:**
 ```typescript
 {
-  id: 'f1',
-  name: 'Manzana',
-  calories: 52,
-  carbs: 14,
-  protein: 0.3,
-  fat: 0.2,
-  fiber: 2.4,
-  trafficLight: 'green',
-  category: 'fruits',
-  servingSize: '100g (1 mediana)'
+  id: string
+  name: string
+  calories: number
+  carbs: number
+  protein: number
+  fat: number
+  serving: string
+  category: string
+  trafficLight: 'green' | 'yellow' | 'red'
 }
 ```
 
 ---
 
-### 5. Sistema de Registro Diario
+## 🔐 Persistencia de Datos
 
-#### **Estructura de Datos**
-Cada día genera un registro único (`DailyLog`) que contiene:
+**LocalStorage** con claves organizadas:
 
-##### **Metadatos del Registro**
-- **date**: Fecha en formato ISO (YYYY-MM-DD)
-- **userId**: Identificador del usuario propietario
-- **targetCalories**: Meta de calorías del día
-- **targetCarbs**: Meta de carbohidratos (g)
-- **targetProtein**: Meta de proteínas (g)
-- **targetFat**: Meta de grasas (g)
-
-##### **Entradas de Alimentos** (`FoodEntry[]`)
-Array de alimentos consumidos, cada uno con:
-- **id**: ID único de la entrada
-- **foodId**: Referencia al alimento en la base de datos
-- **foodName**: Nombre del alimento
-- **calories**: Calorías calculadas según cantidad
-- **carbs**: Carbohidratos totales
-- **protein**: Proteínas totales
-- **fat**: Grasas totales
-- **trafficLight**: Semáforo nutricional
-- **quantity**: Número de porciones
-- **timestamp**: Momento exacto del registro
-
-##### **Totales Acumulados**
-Calculados automáticamente:
-- **totalCalories**: Suma de todas las calorías
-- **totalCarbs**: Suma de carbohidratos
-- **totalProtein**: Suma de proteínas
-- **totalFat**: Suma de grasas
-
-#### **Flujo de Registro**
-
-1. **Usuario selecciona alimento** → Búsqueda en base de datos
-2. **Especifica cantidad** → Multiplicador de porción
-3. **Sistema calcula valores** → Calorías y macros × cantidad
-4. **Crea entrada** → `FoodEntry` con timestamp
-5. **Actualiza totales** → Suma acumulativa
-6. **Persiste datos** → Guardado en localStorage
-7. **Actualiza UI** → Reflejo inmediato en interfaz
-
----
-
-### 6. Interfaz de Usuario
-
-#### **Arquitectura de Componentes**
-
-##### **Componente Dashboard** (Vista Principal)
-El centro de control de la aplicación que integra:
-
-**a) Círculo de Progreso Calórico**
-- Implementado con `react-circular-progressbar`
-- Muestra porcentaje de meta cumplida
-- Sistema de colores dinámico:
-  - 🟢 Verde (90-110%): Rango óptimo
-  - 🔴 Rojo (>110%): Exceso calórico
-  - 🟡 Amarillo (<90%): Consumo insuficiente
-- Animación suave de transición
-
-**b) Estadísticas Metabólicas**
-Tarjeta que muestra:
-- **TMB**: Calorías en reposo
-- **TDEE**: Calorías de mantenimiento
-- **Déficit**: Calorías para pérdida de peso
-- **IMC**: Índice de masa corporal
-
-**c) Barras de Macronutrientes**
-Componente personalizado que visualiza:
-- 3 barras horizontales (carbos/proteínas/grasas)
-- Gradientes de color por tipo
-- Valores numéricos y porcentajes
-- Actualización en tiempo real
-
-**d) Formulario de Registro**
-Sistema de entrada de alimentos que incluye:
-- **Buscador en tiempo real**: Filtrado instantáneo
-- **Selector de alimentos**: Dropdown con 80+ opciones
-- **Control de cantidad**: Input numérico con incrementos de 0.5
-- **Validación**: Botón deshabilitado hasta selección válida
-- **Feedback visual**: Muestra calorías y porción
-
-**e) Lista de Alimentos Consumidos**
-Listado dinámico que presenta:
-- Nombre del alimento
-- Indicador de semáforo (🟢🟡🔴)
-- Cantidad de porciones
-- Hora de registro
-- Calorías totales
-- Badges de macronutrientes (C/P/G)
-- Botón de eliminación
-
-##### **Componente History** (Historial)
-Análisis temporal del consumo:
-
-**a) Gráfica de Tendencias**
-- Implementada con `recharts`
-- LineChart de últimos 7 días
-- Eje X: Fechas formateadas en español
-- Eje Y: Calorías
-- Línea con gradiente
-- Puntos interactivos con tooltip
-- Línea de referencia de meta
-
-**b) Estadísticas Resumen**
-- Total de días registrados
-- Promedio de calorías
-- Día con mayor consumo
-- Día con menor consumo
-- Tendencia general
-
-##### **Componente Settings** (Configuración)
-Panel de gestión de perfil:
-
-**a) Información de Cuenta**
-- Email (solo lectura)
-- Botón de cambio de contraseña
-
-**b) Datos Personales Editables**
-- Nombre completo
-- Edad (años)
-- Peso (kg)
-- Altura (cm)
-- Género (select)
-- Nivel de actividad (select)
-- Validación en tiempo real
-- Confirmación antes de guardar
-
-**c) Preferencias**
-- Toggle de tema claro/oscuro
-- Persistencia de preferencia
-
-**d) Seguridad**
-- Cambio de contraseña
-- Validación de contraseña actual
-- Confirmación de nueva contraseña
-- Feedback de éxito/error
-
-##### **Componentes Reutilizables**
-
-**Button Component**
 ```typescript
-Props:
-- variant: 'primary' | 'secondary' | 'ghost'
-- size: 'sm' | 'md' | 'lg'
-- disabled: boolean
-- onClick: function
+'cc_users'           // Usuarios registrados
+'cc_currentUser'     // Usuario activo
+'cc_dailyLogs'       // Logs de alimentos por día
+'cc_theme'           // Preferencia de tema
 ```
 
-Variantes:
-- **Primary**: Botón de acción principal (color acento)
-- **Secondary**: Botón secundario (con borde)
-- **Ghost**: Botón transparente (solo hover)
-
-**Card Component**
+**Formato de logs:**
 ```typescript
-Props:
-- title: string (opcional)
-- children: ReactNode
-- className: string (opcional)
-```
-
-Características:
-- Efecto glassmorphism
-- Borde sutil
-- Sombra adaptativa
-- Padding consistente
-
----
-
-### 7. Sistema de Temas
-
-#### **Implementación**
-Context API con `ThemeContext` que provee:
-
-```typescript
-interface ThemeContextType {
-  theme: 'light' | 'dark'
-  toggleTheme: () => void
+{
+  userId: string
+  date: string        // YYYY-MM-DD
+  entries: FoodEntry[]
+  totalCalories: number
+  macros: { carbs, protein, fat }
 }
 ```
 
-#### **Variables CSS**
+---
 
-**Tema Claro:**
-```css
---background: #f5f5f5
---card: rgba(255, 255, 255, 0.7)
---text: #1a1a1a
---text-secondary: #666666
---accent: #6366f1
---border: rgba(0, 0, 0, 0.1)
-```
+## 📱 Responsive Design
 
-**Tema Oscuro:**
-```css
---background: #0f172a
---card: rgba(30, 41, 59, 0.7)
---text: #f1f5f9
---text-secondary: #94a3b8
---accent: #818cf8
---border: rgba(255, 255, 255, 0.1)
-```
+**Breakpoints:**
+- Desktop: > 1024px
+- Tablet: 768px - 1024px
+- Mobile: < 768px
 
-#### **Persistencia**
-El tema seleccionado se guarda en localStorage y se aplica automáticamente al cargar la aplicación.
+**Adaptaciones:**
+- Grid columns ajustables (2→1)
+- Navegación responsive
+- Tipografía escalable
+- Espaciados optimizados
 
 ---
 
-### 8. Gestión de Estado
+## 🎨 Temas
 
-#### **Context API**
+**Variables CSS dinámicas:**
 
-**AuthContext** (Autenticación Global)
-Gestiona:
-- Usuario actual en sesión
-- Funciones de login/logout
-- Registro de nuevos usuarios
-- Actualización de perfil
-- Persistencia de sesión
+```css
+/* Light Mode */
+--bg-primary: #ffffff
+--bg-secondary: #f8f9fa
+--text: #1f2937
+--accent: #3b82f6
 
-**ThemeContext** (Tema Visual)
-Gestiona:
-- Tema actual (claro/oscuro)
-- Toggle entre temas
-- Persistencia de preferencia
-
-#### **Custom Hooks**
-
-**useCaloriesCalculator**
-```typescript
-Input: User | null
-Output: CalorieGoals | null
-
-Proceso:
-1. Extrae datos del usuario
-2. Calcula BMR (Harris-Benedict)
-3. Calcula TDEE (BMR × actividad)
-4. Calcula IMC
-5. Determina categoría de peso
-6. Calcula distribución de macros
-7. Retorna objeto completo
+/* Dark Mode */
+--bg-primary: #1f2937
+--bg-secondary: #111827
+--text: #f9fafb
+--accent: #60a5fa
 ```
 
-**useDailyLog**
-```typescript
-Input: userId, targetCalories, targetMacros
-Output: { todayLog, addEntry, removeEntry }
-
-Funciones:
-- Carga registro del día actual
-- Crea nuevo registro si no existe
-- addEntry: Agrega alimento y recalcula totales
-- removeEntry: Elimina alimento y ajusta totales
-- Persistencia automática en localStorage
-```
-
-**useHistoricalLogs**
-```typescript
-Input: userId, days (default: 7)
-Output: DailyLog[]
-
-Proceso:
-1. Carga todos los logs del usuario
-2. Filtra últimos N días
-3. Ordena por fecha descendente
-4. Retorna array de logs
-```
+**Transiciones suaves** en todos los elementos para cambios de tema fluidos.
 
 ---
 
-### 9. Persistencia de Datos
+## 🧪 Testing
 
-#### **Tecnología**: localStorage
+```bash
+# Ejecutar todos los tests
+npm test
 
-El sistema utiliza el almacenamiento local del navegador para persistir datos sin necesidad de backend.
+# Coverage
+npm run test:coverage
 
-#### **Estructura de Almacenamiento**
+# Watch mode
+npm run test:watch
+```
 
-**Key: 'users'**
-Array de todos los usuarios registrados:
+**Framework**: Vitest + Testing Library
+
+---
+
+## 📚 Documentación Adicional
+
+- **[MANUAL_DE_USUARIO.md](./MANUAL_DE_USUARIO.md)**: Guía completa para usuarios finales
+- **[ICONOS.md](./ICONOS.md)**: Documentación del sistema de iconos SVG
+
+---
+
+## 🚀 Deployment
+
+**Vercel** (configuración en `vercel.json`):
+
 ```json
-[
-  {
-    "id": "1699123456789-abc123",
-    "email": "usuario@ejemplo.com",
-    "password": "contraseña_hasheada",
-    "name": "Juan Pérez",
-    "age": 25,
-    "weight": 70,
-    "height": 175,
-    "gender": "male",
-    "activityLevel": "moderate"
-  }
-]
-```
-
-**Key: 'currentUser'**
-Usuario actualmente autenticado (objeto único)
-
-**Key: 'dailyLogs'**
-Array de todos los registros diarios:
-```json
-[
-  {
-    "date": "2025-11-21",
-    "userId": "1699123456789-abc123",
-    "entries": [...],
-    "totalCalories": 1850,
-    "totalCarbs": 250,
-    "totalProtein": 90,
-    "totalFat": 52,
-    "targetCalories": 2000,
-    "targetCarbs": 275,
-    "targetProtein": 100,
-    "targetFat": 56
-  }
-]
-```
-
-**Key: 'theme'**
-Preferencia de tema: 'light' | 'dark'
-
-#### **Ventajas de localStorage**
-- ✅ Sin necesidad de servidor
-- ✅ Persistencia entre sesiones
-- ✅ Acceso instantáneo
-- ✅ Sin costos de infraestructura
-
-#### **Limitaciones**
-- ⚠️ Datos solo en el navegador local
-- ⚠️ Sin sincronización entre dispositivos
-- ⚠️ Límite de ~5-10 MB
-- ⚠️ Datos no encriptados
-
----
-
-### 10. Mensajes Motivacionales
-
-Sistema de feedback automático según progreso:
-
-#### **Lógica de Mensajes**
-
-**Rango Óptimo (90-110%)**
-```
-Tipo: 'excellent'
-Mensaje: "¡Excelente! Vas por buen camino 💪"
-Emoji: 🎯
-Color: Verde
-```
-
-**Exceso (>110%)**
-```
-Tipo: 'over'
-Mensaje: "Te pasaste un poco, ¡mañana lo harás mejor! 😅"
-Emoji: 📈
-Color: Rojo
-```
-
-**Insuficiente (<90%)**
-```
-Tipo: 'under'
-Mensaje: "¡Necesitas más energía! Come algo nutritivo 🍎"
-Emoji: 📉
-Color: Amarillo
-```
-
----
-
-### 11. Validaciones y Seguridad
-
-#### **Validaciones de Entrada**
-
-**Registro de Usuario:**
-- Email: Formato válido, único en el sistema
-- Contraseña: Mínimo 6 caracteres
-- Edad: 15-100 años
-- Peso: 30-300 kg
-- Altura: 100-250 cm
-- Todos los campos requeridos
-
-**Login:**
-- Email: No vacío, formato válido
-- Contraseña: No vacía
-- Credenciales deben coincidir
-
-**Registro de Alimentos:**
-- Alimento seleccionado requerido
-- Cantidad > 0
-- Cantidad en incrementos de 0.5
-
-#### **Seguridad**
-⚠️ **Nota**: Esta es una aplicación de demostración. En producción se debe:
-- Encriptar contraseñas (bcrypt)
-- Usar HTTPS
-- Implementar tokens JWT
-- Validar en servidor
-- Sanitizar inputs
-
----
-
-### 12. Responsive Design
-
-#### **Breakpoints**
-
-**Mobile First Approach**
-```css
-/* Base: Mobile (< 640px) */
-.dashboard-grid {
-  grid-template-columns: 1fr;
-}
-
-/* Tablet (≥ 768px) */
-@media (min-width: 768px) {
-  .progress-card {
-    grid-column: span 2;
-  }
-}
-
-/* Desktop (≥ 1024px) */
-@media (min-width: 1024px) {
-  .dashboard-grid {
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  }
+{
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite"
 }
 ```
 
-#### **Adaptaciones por Dispositivo**
-
-**Mobile:**
-- Navegación simplificada
-- Cards apiladas verticalmente
-- Fuentes más grandes
-- Botones de fácil toque
-
-**Tablet:**
-- Grid de 2 columnas
-- Navegación horizontal
-- Aprovechamiento de espacio
-
-**Desktop:**
-- Grid flexible adaptativo
-- Sidebar permanente
-- Tooltips informativos
-- Atajos de teclado
-
+**Build optimizado:**
+- Code splitting
+- Tree shaking
+- Minificación
+- Gzip compression
 
 ---
 
-## 🏗️ Arquitectura Técnica
+## 📝 Casos de Uso
 
-### Stack Tecnológico Completo
-
-| Capa | Tecnología | Versión | Propósito |
-|------|-----------|---------|-----------|
-| **Core** | React | 18.2.0 | Framework UI |
-| **Lenguaje** | TypeScript | 5.1.6 | Tipado estático |
-| **Build Tool** | Vite | 5.0.8 | Dev server + bundler |
-| **Routing** | React Router | 6.20.1 | Navegación SPA |
-| **Gráficas** | Recharts | 2.10.3 | Visualización de datos |
-| **Progress** | react-circular-progressbar | 2.1.0 | Círculo de progreso |
-| **Fechas** | date-fns | 3.0.6 | Manejo de fechas |
-| **Linting** | ESLint | 8.55.0 | Calidad de código |
-| **Formato** | Prettier | 3.1.1 | Formato consistente |
-| **Testing** | Vitest | 1.1.0 | Unit testing |
-
-### Principios de Diseño
-
-**1. Separation of Concerns**
-- Contexts: Estado global
-- Hooks: Lógica de negocio
-- Components: UI reutilizable
-- Utils: Funciones puras
-- Data: Fuentes de datos
-
-**2. DRY (Don't Repeat Yourself)**
-- Componentes reutilizables (Button, Card)
-- Hooks personalizados
-- Utilidades compartidas
-- Constantes globales
-
-**3. Single Responsibility**
-- Cada componente una responsabilidad
-- Funciones con propósito único
-- Módulos cohesivos
-
-**4. Type Safety**
-- Interfaces TypeScript estrictas
-- Props tipadas
-- Estado tipado
-- Sin uso de `any`
-
----
-
-## 📈 Flujo de Datos Completo
-
+### 1. Registro de Usuario Nuevo
 ```
-┌─────────────┐
-│   Usuario   │
-└──────┬──────┘
-       │
-       ▼
-┌─────────────────────────────────────┐
-│  Interfaz (React Components)        │
-│  - Dashboard                        │
-│  - History                          │
-│  - Settings                         │
-└──────┬──────────────────────┬───────┘
-       │                      │
-       ▼                      ▼
-┌──────────────┐      ┌──────────────┐
-│   Contexts   │      │ Custom Hooks │
-│ - Auth       │◄────►│ - Calculator │
-│ - Theme      │      │ - DailyLog   │
-└──────┬───────┘      └──────┬───────┘
-       │                     │
-       ▼                     ▼
-┌─────────────────────────────────────┐
-│  Utils (Calculations)               │
-│  - calculateBMR()                   │
-│  - calculateTDEE()                  │
-│  - calculateIMC()                   │
-│  - calculateMacroTargets()          │
-└──────┬──────────────────────────────┘
-       │
-       ▼
-┌─────────────────────────────────────┐
-│  localStorage (Persistence)         │
-│  - users                            │
-│  - currentUser                      │
-│  - dailyLogs                        │
-│  - theme                            │
-└─────────────────────────────────────┘
+Usuario ingresa → Completa formulario → Sistema calcula TMB/TDEE → Perfil guardado
+```
+
+### 2. Agregar Alimento
+```
+Buscar alimento → Seleccionar → Ajustar porciones → Agregar → Actualiza totales
+```
+
+### 3. Visualizar Progreso
+```
+Dashboard muestra círculo (% meta) → Macros en barras → Lista de alimentos → Mensaje motivacional
+```
+
+### 4. Revisar Historial
+```
+Navegar a historial → Seleccionar día → Ver detalles expandidos → Analizar consumo
 ```
 
 ---
 
-## 🎨 Diseño Visual
+## 🤝 Contribuciones
 
-### Paleta de Colores
+Este proyecto es de código abierto. Para contribuir:
 
-**Acentos Principales:**
-- Primario: `#6366f1` (Índigo vibrante)
-- Éxito: `#10b981` (Verde esmeralda)
-- Advertencia: `#f59e0b` (Ámbar)
-- Peligro: `#ef4444` (Rojo coral)
-
-**Sistema de Colores Semánticos:**
-- Carbohidratos: `#f59e0b` → `#f97316` (Gradiente naranja)
-- Proteínas: `#3b82f6` → `#2563eb` (Gradiente azul)
-- Grasas: `#10b981` → `#059669` (Gradiente verde)
-
-### Efectos Visuales
-
-**Glassmorphism:**
-```css
-background: rgba(255, 255, 255, 0.7);
-backdrop-filter: blur(10px);
-border: 1px solid rgba(255, 255, 255, 0.2);
-```
-
-**Transiciones Suaves:**
-- Hover states: 200ms ease
-- Theme switching: 300ms ease
-- Progress bars: 500ms ease-in-out
+1. Fork el repositorio
+2. Crea una rama (`git checkout -b feature/nueva-funcionalidad`)
+3. Commit cambios (`git commit -m 'feat: agregar funcionalidad'`)
+4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
+5. Abre un Pull Request
 
 ---
 
-## 💡 Casos de Uso Detallados
+## 📄 Licencia
 
-### Caso 1: Usuario Nuevo - Pérdida de Peso
-
-**Perfil:**
-- Nombre: María González
-- Edad: 30 años
-- Peso: 75 kg
-- Altura: 165 cm
-- Género: Femenino
-- Actividad: Sedentaria
-- Objetivo: Perder peso
-
-**Cálculos del Sistema:**
-1. BMR = 447.593 + (9.247 × 75) + (3.098 × 165) - (4.330 × 30) = **1,456 kcal**
-2. TDEE = 1,456 × 1.2 = **1,747 kcal**
-3. Déficit = 1,747 × 0.85 = **1,485 kcal** (-262 kcal/día)
-4. IMC = 75 / (1.65)² = **27.5** (Sobrepeso)
-5. Macros para déficit:
-   - Carbos: (1,485 × 0.55) / 4 = **204g**
-   - Proteína: (1,485 × 0.20) / 4 = **74g**
-   - Grasa: (1,485 × 0.25) / 9 = **41g**
-
-**Experiencia de Usuario:**
-1. Se registra con sus datos
-2. Dashboard muestra meta de 1,485 kcal
-3. Selecciona alimentos 🟢 verdes prioritariamente
-4. Monitorea macros para alcanzar proteína
-5. Historial muestra progreso semanal
-6. Pérdida esperada: ~0.5 kg/semana
-
-### Caso 2: Atleta - Ganancia Muscular
-
-**Perfil:**
-- Nombre: Carlos Rodríguez
-- Edad: 25 años
-- Peso: 80 kg
-- Altura: 180 cm
-- Género: Masculino
-- Actividad: Muy activa
-- Objetivo: Ganar masa muscular
-
-**Cálculos del Sistema:**
-1. BMR = 88.362 + (13.397 × 80) + (4.799 × 180) - (5.677 × 25) = **1,959 kcal**
-2. TDEE = 1,959 × 1.9 = **3,722 kcal**
-3. Superávit = 3,722 × 1.15 = **4,280 kcal** (+558 kcal/día)
-4. IMC = 80 / (1.80)² = **24.7** (Normal)
-5. Macros para superávit:
-   - Carbos: (4,280 × 0.55) / 4 = **588g**
-   - Proteína: (4,280 × 0.20) / 4 = **214g**
-   - Grasa: (4,280 × 0.25) / 9 = **119g**
-
-**Estrategia:**
-- Prioriza proteínas (pollo, pescado, huevos)
-- Incluye carbos complejos (arroz integral, avena)
-- Grasas saludables (aguacate, nueces)
-- Monitorea especialmente barra de proteínas
-- Ganancia esperada: ~0.25 kg músculo/semana
-
-### Caso 3: Mantenimiento Saludable
-
-**Perfil:**
-- Nombre: Ana López
-- Edad: 28 años
-- Peso: 60 kg
-- Altura: 168 cm
-- Género: Femenino
-- Actividad: Moderada
-- Objetivo: Mantener peso, mejorar nutrición
-
-**Cálculos del Sistema:**
-1. BMR = 447.593 + (9.247 × 60) + (3.098 × 168) - (4.330 × 28) = **1,417 kcal**
-2. TDEE = 1,417 × 1.55 = **2,196 kcal**
-3. IMC = 60 / (1.68)² = **21.3** (Normal)
-4. Macros:
-   - Carbos: **302g**
-   - Proteína: **110g**
-   - Grasa: **61g**
-
-**Enfoque:**
-- Usa semáforo para elecciones saludables
-- Balance 70% 🟢 verde, 25% 🟡 amarillo, 5% 🔴 rojo
-- No cuenta calorías estrictamente
-- Monitorea tendencias semanales
-- Mantiene peso estable y energía alta
+MIT License - Uso libre con atribución
 
 ---
 
-## 🔧 Mantenibilidad y Escalabilidad
+## 👤 Autor
 
-### Estructura Modular
-
-El código está organizado para facilitar:
-
-**Expansión de Funcionalidades:**
-- Agregar nuevos alimentos: Editar `foods.ts`
-- Nuevas categorías: Actualizar tipos y constantes
-- Nuevos cálculos: Agregar en `calculations.ts`
-- Nuevos componentes: Carpeta `components/`
-
-**Testing:**
-- Funciones puras fáciles de testear
-- Componentes aislados
-- Mocks de datos disponibles
-
-**Documentación:**
-- Comentarios JSDoc en funciones
-- README detallado
-- Tipos TypeScript auto-documentados
-
-### Próximas Evoluciones Técnicas
-
-**Backend Integration:**
-- API REST con Node.js/Express
-- Base de datos PostgreSQL/MongoDB
-- Autenticación JWT
-- Sincronización multi-dispositivo
-
-**Funcionalidades Avanzadas:**
-- Análisis nutricional con IA
-- Recomendaciones personalizadas
-- Sistema de recetas
-- Integración con APIs externas (USDA Food Database)
-- Escaneo de códigos de barras
-- Exportación de reportes PDF
-
-**Optimizaciones:**
-- Server-side rendering (Next.js)
-- Progressive Web App (PWA)
-- Optimistic UI updates
-- Cache strategies
-- Lazy loading de imágenes
+**Sebastian E Rios Fuentes**
+- GitHub: [@al064697](https://github.com/al064697)
+- Repositorio: [ContadorCalorias](https://github.com/al064697/ContadorCalorias)
 
 ---
 
-## 📁 Estructura del Proyecto
-
-```
-ContadorCalorias/
-├── src/
-│   ├── components/
-│   │   ├── ui/
-│   │   │   ├── Button.tsx              # Componente botón reutilizable
-│   │   │   ├── Button.css
-│   │   │   ├── Card.tsx                # Componente tarjeta
-│   │   │   └── Card.css
-│   │   ├── MacronutrientBars.tsx       # Barras de macronutrientes
-│   │   └── MacronutrientBars.css
-│   ├── contexts/
-│   │   ├── AuthContext.tsx             # Estado global autenticación
-│   │   └── ThemeContext.tsx            # Estado global tema
-│   ├── data/
-│   │   └── foods.ts                    # Base de datos 80+ alimentos
-│   ├── hooks/
-│   │   ├── useCaloriesCalculator.ts    # Hook TMB/TDEE/IMC/Macros
-│   │   ├── useDailyLog.ts              # Hook logs diarios
-│   │   └── useHistoricalLogs.ts        # Hook historial
-│   ├── pages/
-│   │   ├── Login.tsx                   # Página inicio de sesión
-│   │   ├── Register.tsx                # Página registro
-│   │   ├── Dashboard.tsx               # Dashboard principal
-│   │   ├── Dashboard.css
-│   │   ├── History.tsx                 # Página historial
-│   │   ├── Settings.tsx                # Página configuración
-│   │   └── Auth.css                    # Estilos compartidos
-│   ├── utils/
-│   │   ├── calculations.ts             # Fórmulas TMB/TDEE/IMC/Macros
-│   │   └── constants.ts                # Constantes globales
-│   ├── App.tsx                         # Componente raíz con routing
-│   ├── main.tsx                        # Entry point
-│   ├── styles.css                      # Estilos globales
-│   └── types.ts                        # Tipos TypeScript completos
-├── public/                              # Assets estáticos
-├── package.json                         # Dependencias
-├── tsconfig.json                        # Configuración TypeScript
-├── vite.config.ts                       # Configuración Vite
-├── DOCUMENTACION.md                     # Documentación técnica completa
-└── README.md                            # Este archivo
-```
-
----
-
-## 📚 Glosario de Términos
-
-**TMB/BMR**: Tasa Metabólica Basal - Energía necesaria para funciones vitales en reposo
-
-**TDEE**: Total Daily Energy Expenditure - Gasto energético total considerando actividad
-
-**IMC/BMI**: Índice de Masa Corporal - Relación entre peso y altura
-
-**Macronutrientes**: Nutrientes que el cuerpo necesita en grandes cantidades (carbohidratos, proteínas, grasas)
-
-**Micronutrientes**: Vitaminas y minerales necesarios en pequeñas cantidades
-
-**Déficit calórico**: Consumir menos calorías de las que se gastan para perder peso
-
-**Superávit calórico**: Consumir más calorías de las que se gastan para ganar peso
-
-**Kilocalorías (kcal)**: Unidad de energía de los alimentos (comúnmente "calorías")
-
-**Porción**: Cantidad estándar de alimento definida para cálculos nutricionales
-
-**Semáforo nutricional**: Sistema de clasificación verde/amarillo/rojo según calidad nutricional
-
-**Glassmorphism**: Efecto visual de cristal translúcido con desenfoque
-
----
-
-## 📄 Licencia y Créditos
-
-**Licencia:** MIT
-
-**Desarrollado por:** al064697
-
-**Basado en:**
-- Ecuación de Harris-Benedict (1984)
-- Guía de Alimentos para la Población Mexicana
-- Estándares nutricionales de la OMS
-
-**Tecnologías de código abierto:**
-- React (Meta)
-- TypeScript (Microsoft)
-- Vite (Evan You)
-- Recharts (Recharts Group)
-
----
-
-**Versión de la Documentación:** 2.0.0  
-**Fecha:** Noviembre 2025  
-**Estado:** Producción
+**⭐ Si este proyecto te fue útil, considera darle una estrella en GitHub**
