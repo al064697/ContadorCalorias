@@ -271,7 +271,7 @@ export function getMotivationalMessage(consumed: number, target: number) {
   } else {
     return {
       type: 'under' as const,
-      message: '¡Necesitas más energía! Come algo nutritivo 🍎',
+      message: '¡Necesitas más energía! Come algo nutritivo',
       emoji: '📉'
     }
   }
