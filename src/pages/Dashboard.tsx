@@ -42,12 +42,6 @@ import {
   CarbIcon,
   ProteinBadgeIcon,
   FatIcon,
-  TargetIcon,
-  StrengthIcon,
-  TrendUpIcon,
-  TrendDownIcon,
-  AppleIcon,
-  FireIcon,
   EnergyIcon,
   TrashIcon,
   ClockIcon,
@@ -298,9 +292,8 @@ export default function Dashboard() {
 
       <div className="dashboard-content">
         <div className="welcome-section">
-          <h1 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <h1>
             Hola, {user.name}!
-            <StrengthIcon size={32} color="var(--accent)" />
           </h1>
           <p className="welcome-subtitle">
             {user.age} años • {user.weight} kg • {user.height} cm
@@ -338,11 +331,6 @@ export default function Dashboard() {
               </div>
             </div>
             <div className={`motivational motivational-${motivational.type}`}>
-              <span className="motivational-emoji">
-                {motivational.type === 'excellent' && <TargetIcon size={24} color="#10b981" />}
-                {motivational.type === 'over' && <TrendUpIcon size={24} color="#ef4444" />}
-                {motivational.type === 'under' && <AppleIcon size={24} color="#f59e0b" />}
-              </span>
               <span>{motivational.message}</span>
             </div>
           </Card>
