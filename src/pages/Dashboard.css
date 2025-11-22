@@ -32,6 +32,13 @@
 .nav-actions {
   display: flex;
   gap: 12px;
+  align-items: center;
+}
+
+.nav-actions button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .dashboard-content {
@@ -129,7 +136,8 @@
 }
 
 .motivational-emoji {
-  font-size: 1.5rem;
+  display: inline-flex;
+  align-items: center;
   margin-right: 8px;
 }
 
@@ -251,8 +259,9 @@
 }
 
 .traffic-light {
-  font-size: 1.2rem;
-  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .food-entry-quantity {
@@ -273,6 +282,9 @@
   border-radius: 6px;
   font-weight: 600;
   letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .macro-badge-carbs {

@@ -23,6 +23,7 @@ import { ActivityLevel, Gender } from '../types'
 import { ACTIVITY_LABELS } from '../utils/constants'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
+import { SettingsIcon, UserIcon, SunIcon, MoonIcon, SaveIcon, EditIcon } from '../components/icons'
 import './Settings.css'
 
 export default function Settings() {
@@ -184,7 +185,10 @@ export default function Settings() {
         <Button variant="ghost" onClick={() => navigate('/dashboard')}>
           ← Volver
         </Button>
-        <h1>⚙️ Configuración</h1>
+        <h1 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <SettingsIcon size={32} color="var(--accent)" />
+          Configuración
+        </h1>
       </div>
 
       <div className="settings-content">
@@ -193,7 +197,12 @@ export default function Settings() {
         {error && <div className="settings-message error">{error}</div>}
 
         {/* Información de la cuenta */}
-        <Card title="📊 Información de la cuenta">
+        <Card title={
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <UserIcon size={20} />
+            Información de la cuenta
+          </span>
+        }>
           <div className="account-info">
             <div className="info-item">
               <span className="info-label">ID de usuario:</span>
@@ -207,7 +216,12 @@ export default function Settings() {
         </Card>
 
         {/* Datos personales */}
-        <Card title="👤 Datos personales">
+        <Card title={
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <UserIcon size={20} />
+            Datos personales
+          </span>
+        }>
           <form onSubmit={handleUpdateProfile} className="settings-form">
             <div className="form-row">
               <div className="form-group">
@@ -353,7 +367,12 @@ export default function Settings() {
         </Card>
 
         {/* Preferencias */}
-        <Card title="🎨 Preferencias">
+        <Card title={
+          <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <SettingsIcon size={20} />
+            Preferencias
+          </span>
+        }>
           <div className="preferences">
             <div className="preference-item">
               <div className="preference-info">
@@ -365,7 +384,17 @@ export default function Settings() {
                 onClick={toggleTheme}
                 className="theme-toggle-btn"
               >
-                {theme === 'dark' ? '☀️ Modo claro' : '🌙 Modo oscuro'}
+                {theme === 'dark' ? (
+                  <>
+                    <SunIcon size={18} />
+                    Modo claro
+                  </>
+                ) : (
+                  <>
+                    <MoonIcon size={18} />
+                    Modo oscuro
+                  </>
+                )}
               </Button>
             </div>
           </div>

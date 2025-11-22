@@ -1,0 +1,18 @@
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.icon:hover {
+  opacity: 0.8;
+}
+
+.icon.clickable {
+  cursor: pointer;
+}
+
+.icon.clickable:active {
+  transform: scale(0.95);
+}

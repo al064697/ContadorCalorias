@@ -23,6 +23,7 @@ import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
+import { HistoryIcon, CalendarIcon, EnergyIcon } from '../components/icons'
 import './History.css'
 
 export default function History() {
@@ -49,7 +50,10 @@ export default function History() {
         <Button variant="ghost" onClick={() => navigate('/dashboard')}>
           ← Volver
         </Button>
-        <h1>📊 Historial de 7 días</h1>
+        <h1 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <HistoryIcon size={32} color="var(--accent)" />
+          Historial de 7 días
+        </h1>
       </div>
 
       <div className="history-content">
@@ -88,7 +92,8 @@ export default function History() {
                 return (
                   <div key={log.date} className="history-item">
                     <div className="history-item-header">
-                      <span className="history-date">
+                      <span className="history-date" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <CalendarIcon size={18} />
                         {format(new Date(log.date), "EEEE, d 'de' MMMM", { locale: es })}
                       </span>
                       <span className={`history-badge ${isGood ? 'badge-success' : 'badge-warning'}`}>
@@ -96,7 +101,10 @@ export default function History() {
                       </span>
                     </div>
                     <div className="history-item-stats">
-                      <span>{log.totalCalories} / {log.targetCalories} kcal</span>
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                        <EnergyIcon size={16} />
+                        {log.totalCalories} / {log.targetCalories} kcal
+                      </span>
                       <span className="history-foods">{log.entries.length} alimentos</span>
                     </div>
                   </div>

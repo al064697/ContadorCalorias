@@ -35,6 +35,28 @@ import 'react-circular-progressbar/dist/styles.css'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
 import MacronutrientBars from '../components/MacronutrientBars'
+import {
+  GreenLightIcon,
+  YellowLightIcon,
+  RedLightIcon,
+  CarbIcon,
+  ProteinBadgeIcon,
+  FatIcon,
+  TargetIcon,
+  StrengthIcon,
+  TrendUpIcon,
+  TrendDownIcon,
+  AppleIcon,
+  FireIcon,
+  EnergyIcon,
+  TrashIcon,
+  ClockIcon,
+  SunIcon,
+  MoonIcon,
+  LogoutIcon,
+  HistoryIcon,
+  UserIcon
+} from '../components/icons'
 import './Dashboard.css'
 
 export default function Dashboard() {
@@ -196,7 +218,7 @@ export default function Dashboard() {
   }
 
   /**
-   * FUNCIÓN DESTACADA: Obtener emoji del semáforo nutricional
+   * FUNCIÓN DESTACADA: Obtener icono del semáforo nutricional
    * 
    * Implementa el sistema de clasificación nutricional basado en la
    * Guía de Alimentos para la Población Mexicana.
@@ -207,13 +229,13 @@ export default function Dashboard() {
    * 
    * CATEGORÍAS:
    * 
-   * 🔵 VERDE - Consumo libre:
+   * 🟢 VERDE - Consumo libre:
    * - Alimentos nutritivos y bajos en calorías
    * - Verduras, frutas, proteínas magras
    * - Se pueden consumir en cantidades generosas
    * - Ejemplos: Lechuga, pollo sin piel, manzana
    * 
-   * 🔶 AMARILLO - Consumo moderado:
+   * 🟡 AMARILLO - Consumo moderado:
    * - Alimentos nutritivos pero más calóricos
    * - Grasas saludables, carbohidratos complejos
    * - Controlar porciones
@@ -226,23 +248,23 @@ export default function Dashboard() {
    * - Ejemplos: Papas fritas, refrescos, donas
    * 
    * VISUALIZACIÓN:
-   * Los emojis aparecen junto a cada alimento registrado,
+   * Los iconos SVG personalizados aparecen junto a cada alimento registrado,
    * permitiendo al usuario ver de un vistazo la calidad
    * nutricional de su alimentación del día.
    * 
    * @param trafficLight - Clasificación del alimento
-   * @returns Emoji correspondiente al nivel nutricional
+   * @returns Componente de icono SVG correspondiente al nivel nutricional
    */
-  const getTrafficLightEmoji = (trafficLight: 'green' | 'yellow' | 'red') => {
+  const getTrafficLightIcon = (trafficLight: 'green' | 'yellow' | 'red') => {
     switch (trafficLight) {
       case 'green':
-        return '🟯' // Consumo libre - alimentos saludables
+        return <GreenLightIcon size={20} /> // Consumo libre - alimentos saludables
       case 'yellow':
-        return '🟯' // Consumo moderado - controlar porciones
+        return <YellowLightIcon size={20} /> // Consumo moderado - controlar porciones
       case 'red':
-        return '🔴' // Evitar o limitar - altos en calorías/grasas
+        return <RedLightIcon size={20} /> // Evitar o limitar - altos en calorías/grasas
       default:
-        return '⚪' // Blanco - sin clasificación
+        return null // Sin clasificación
     }
   }
 
@@ -250,18 +272,24 @@ export default function Dashboard() {
     <div className="dashboard">
       <nav className="dashboard-nav">
         <div className="nav-content">
-          <h2>🥗 Contador de Calorías</h2>
+          <h2 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <EnergyIcon size={28} color="var(--accent)" />
+            Contador de Calorías
+          </h2>
           <div className="nav-actions">
             <Button variant="ghost" size="sm" onClick={() => navigate('/history')}>
-              📊 Historial
+              <HistoryIcon size={18} />
+              Historial
             </Button>
             <Button variant="ghost" size="sm" onClick={() => navigate('/settings')}>
-              ⚙️ Configuración
+              <UserIcon size={18} />
+              Configuración
             </Button>
             <Button variant="ghost" size="sm" onClick={toggleTheme}>
-              {theme === 'dark' ? '☀️' : '🌙'}
+              {theme === 'dark' ? <SunIcon size={18} /> : <MoonIcon size={18} />}
             </Button>
             <Button variant="ghost" size="sm" onClick={logout}>
+              <LogoutIcon size={18} />
               Cerrar sesión
             </Button>
           </div>
@@ -270,7 +298,10 @@ export default function Dashboard() {
 
       <div className="dashboard-content">
         <div className="welcome-section">
-          <h1>Hola, {user.name}! 👋</h1>
+          <h1 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            Hola, {user.name}!
+            <StrengthIcon size={32} color="var(--accent)" />
+          </h1>
           <p className="welcome-subtitle">
             {user.age} años • {user.weight} kg • {user.height} cm
           </p>
@@ -307,7 +338,11 @@ export default function Dashboard() {
               </div>
             </div>
             <div className={`motivational motivational-${motivational.type}`}>
-              <span className="motivational-emoji">{motivational.emoji}</span>
+              <span className="motivational-emoji">
+                {motivational.type === 'excellent' && <TargetIcon size={24} color="#10b981" />}
+                {motivational.type === 'over' && <TrendUpIcon size={24} color="#ef4444" />}
+                {motivational.type === 'under' && <AppleIcon size={24} color="#f59e0b" />}
+              </span>
               <span>{motivational.message}</span>
             </div>
           </Card>
@@ -403,11 +438,13 @@ export default function Dashboard() {
                   <li key={entry.id} className="food-entry">
                     <div className="food-entry-main">
                       <div className="food-entry-info">
-                        <span className="traffic-light">{getTrafficLightEmoji(entry.trafficLight)}</span>
+                        <span className="traffic-light">{getTrafficLightIcon(entry.trafficLight)}</span>
                         <div>
                           <strong>{entry.foodName}</strong>
-                          <span className="food-entry-quantity">
-                            {entry.quantity}x • {new Date(entry.timestamp).toLocaleTimeString('es', {
+                          <span className="food-entry-quantity" style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                            {entry.quantity}x • 
+                            <ClockIcon size={14} />
+                            {new Date(entry.timestamp).toLocaleTimeString('es', {
                               hour: '2-digit',
                               minute: '2-digit'
                             })}
@@ -419,16 +456,25 @@ export default function Dashboard() {
                         <button
                           onClick={() => removeEntry(entry.id)}
                           className="remove-btn"
-                          aria-label={`Eliminar ${entry.foodName}`}
+                          aria-label="Eliminar alimento"
                         >
-                          ✕
+                          <TrashIcon size={16} />
                         </button>
                       </div>
                     </div>
                     <div className="food-entry-macros">
-                      <span className="macro-badge macro-badge-carbs">C: {entry.carbs}g</span>
-                      <span className="macro-badge macro-badge-protein">P: {entry.protein}g</span>
-                      <span className="macro-badge macro-badge-fat">G: {entry.fat}g</span>
+                      <span className="macro-badge macro-badge-carbs">
+                        <CarbIcon size={16} />
+                        {entry.carbs}g
+                      </span>
+                      <span className="macro-badge macro-badge-protein">
+                        <ProteinBadgeIcon size={16} />
+                        {entry.protein}g
+                      </span>
+                      <span className="macro-badge macro-badge-fat">
+                        <FatIcon size={16} />
+                        {entry.fat}g
+                      </span>
                     </div>
                   </li>
                 ))}
