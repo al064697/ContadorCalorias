@@ -29,7 +29,20 @@ interface MacronutrientBarsProps {
 
 export default function MacronutrientBars({ consumed, target }: MacronutrientBarsProps) {
   /**
-   * Calcula el porcentaje de progreso para cada macro.
+   * FUNCIÓN DESTACADA: Cálculo de porcentaje de macronutrientes
+   * 
+   * Esta función es crítica para la visualización del progreso nutricional.
+   * Características importantes:
+   * - Protege contra división por cero (si target === 0)
+   * - Limita el porcentaje máximo a 100% (aunque se consuma más)
+   * - Redondea a entero para mejor visualización
+   * 
+   * @param consumed - Gramos consumidos del macronutriente
+   * @param target - Gramos objetivo del macronutriente
+   * @returns Porcentaje entre 0 y 100
+   * 
+   * Ejemplo: Si consumiste 150g de carbos y tu meta es 200g
+   * → (150/200) * 100 = 75%
    */
   const getPercentage = (consumed: number, target: number) => {
     if (target === 0) return 0

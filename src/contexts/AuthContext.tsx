@@ -44,13 +44,59 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 /**
- * Proveedor del contexto de autenticación.
- * Debe envolver toda la aplicación para dar acceso al estado de auth.
+ * PROVEEDOR DESTACADO: Contexto de Autenticación
+ * 
+ * Este componente implementa todo el sistema de autenticación de la aplicación.
+ * Usa React Context API para compartir el estado de autenticación globalmente.
+ * 
+ * RESPONSABILIDADES:
+ * 1. Gestionar el estado del usuario actual (logueado o no)
+ * 2. Persistir la sesión en localStorage
+ * 3. Proveer funciones de login, register, logout
+ * 4. Validar credenciales
+ * 5. Actualizar datos del usuario
+ * 
+ * PERSISTENCIA DE SESIÓN:
+ * - Al hacer login: guarda usuario en localStorage
+ * - Al recargar página: recupera usuario de localStorage
+ * - Al hacer logout: elimina usuario de localStorage
+ * 
+ * ESTRUCTURA DE DATOS:
+ * localStorage['users'] = [{ email, password, name, age, ... }, ...]
+ * localStorage['currentUser'] = { email, password, name, age, ... }
+ * 
+ * IMPORTANTE: Este sistema usa localStorage, NO es seguro para producción.
+ * En producción real se debe usar:
+ * - Backend con API REST/GraphQL
+ * - Tokens JWT para autenticación
+ * - HTTPS para encriptación
+ * - Hash de contraseñas (bcrypt, etc.)
+ * 
+ * USO:
+ * <AuthProvider>
+ *   <App />
+ * </AuthProvider>
  */
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
 
-  // Al montar el componente, recuperar sesión guardada
+  /**
+   * EFECTO DESTACADO: Recuperación de sesión al iniciar
+   * 
+   * Este efecto se ejecuta una sola vez al montar el componente.
+   * Intenta recuperar la sesión del usuario desde localStorage.
+   * 
+   * FLUJO:
+   * 1. Lee 'currentUser' de localStorage
+   * 2. Si existe: parsea el JSON y establece el usuario
+   * 3. Si no existe: el usuario permanece null (no logueado)
+   * 
+   * BENEFICIO:
+   * El usuario permanece logueado después de recargar la página
+   * o cerrar/abrir el navegador (mientras no limpie localStorage).
+   * 
+   * NOTA: useEffect con [] vacío = ejecuta solo una vez al montar.
+   */
   useEffect(() => {
     // Cargar usuario desde localStorage al iniciar
     const savedUser = localStorage.getItem('currentUser')
@@ -60,12 +106,43 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   /**
-   * Función de inicio de sesión.
-   * Valida email y contraseña contra usuarios almacenados.
+   * FUNCIÓN DESTACADA: Inicio de sesión
+   * 
+   * Autentica al usuario validando sus credenciales contra
+   * la base de datos local (localStorage).
+   * 
+   * PROCESO DE AUTENTICACIÓN:
+   * 1. Recupera todos los usuarios registrados de localStorage
+   * 2. Busca un usuario cuyo email Y contraseña coincidan
+   * 3. Si encuentra coincidencia:
+   *    - Actualiza el estado global del usuario
+   *    - Guarda la sesión en localStorage
+   *    - Retorna true (login exitoso)
+   * 4. Si no encuentra:
+   *    - No hace cambios
+   *    - Retorna false (credenciales inválidas)
+   * 
+   * SEGURIDAD (LIMITACIONES):
+   * - Contraseñas en texto plano (NO seguro)
+   * - Sin protección contra fuerza bruta
+   * - Sin expiración de sesión
+   * 
+   * PARA PRODUCCIÓN, SE NECESITA:
+   * - Hash de contraseñas (bcrypt)
+   * - Tokens JWT con expiración
+   * - Rate limiting
+   * - Autenticación 2FA
+   * - HTTPS obligatorio
    * 
    * @param email - Email del usuario
-   * @param password - Contraseña del usuario
-   * @returns true si login exitoso, false si credenciales inválidas
+   * @param password - Contraseña en texto plano
+   * @returns Promise<boolean> - true si login exitoso, false si falla
+   * 
+   * EJEMPLO:
+   * await login('juan@example.com', 'password123')
+   * → Busca en localStorage['users']
+   * → Si existe: setUser({ email: 'juan@...', name: 'Juan', ... })
+   * → Retorna true
    */
   const login = async (email: string, password: string): Promise<boolean> => {
     // Obtener todos los usuarios de localStorage
@@ -73,6 +150,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const users = usersData ? JSON.parse(usersData) : []
     
     // Buscar usuario con credenciales coincidentes
+    // IMPORTANTE: Comparación exacta (case-sensitive) de email y password
     const foundUser = users.find(
       (u: { email: string; password: string }) => u.email === email && u.password === password
     )

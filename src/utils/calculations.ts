@@ -17,16 +17,35 @@ import { Gender, ActivityLevel, CalorieGoals, WeightCategory } from '../types'
 import { ACTIVITY_MULTIPLIERS, IMC_RANGES } from './constants'
 
 /**
- * Calcula el Índice de Masa Corporal (IMC/BMI).
+ * FUNCIÓN DESTACADA: Cálculo del Índice de Masa Corporal (IMC/BMI)
  * 
- * Fórmula: IMC = peso (kg) / altura (m)²
+ * El IMC es un indicador clave de salud nutricional usado mundialmente.
+ * Fórmula estándar de la OMS: IMC = peso (kg) / altura (m)²
  * 
- * @param weight - Peso en kilogramos
- * @param height - Altura en centímetros
- * @returns IMC redondeado a un decimal
+ * PROCESO DE CÁLCULO:
+ * 1. Convertir altura de cm a metros (ej: 170cm → 1.70m)
+ * 2. Elevar altura al cuadrado (1.70² = 2.89)
+ * 3. Dividir peso entre altura² (70kg / 2.89 = 24.2)
+ * 4. Redondear a un decimal para precisión médica
+ * 
+ * INTERPRETACIÓN:
+ * - < 18.5: Bajo peso
+ * - 18.5-24.9: Peso normal
+ * - 25-29.9: Sobrepeso
+ * - ≥ 30: Obesidad
+ * 
+ * @param weight - Peso en kilogramos (ej: 70)
+ * @param height - Altura en centímetros (ej: 170)
+ * @returns IMC redondeado a un decimal (ej: 24.2)
+ * 
+ * Ejemplo: calculateIMC(70, 170) → 24.2 (peso normal)
  */
 export function calculateIMC(weight: number, height: number): number {
+  // Convertir altura de centímetros a metros
   const heightInMeters = height / 100
+  
+  // Aplicar fórmula IMC y redondear a 1 decimal
+  // Multiplicar por 10, redondear, dividir por 10 = 1 decimal de precisión
   return Math.round((weight / (heightInMeters * heightInMeters)) * 10) / 10
 }
 
@@ -55,28 +74,46 @@ export function getWeightCategory(imc: number): WeightCategory {
 }
 
 /**
- * Calcula la distribución recomendada de macronutrientes en gramos.
+ * FUNCIÓN DESTACADA: Cálculo de distribución de macronutrientes
  * 
- * Distribución estándar según guía nutricional:
- * - Carbohidratos: 50-60% de calorías (4 kcal/g)
- * - Proteínas: 15-20% de calorías (4 kcal/g)
- * - Grasas: 25-30% de calorías (9 kcal/g)
+ * Esta función implementa las recomendaciones nutricionales oficiales para
+ * una dieta balanceada según la Guía de Alimentos para la Población Mexicana.
  * 
- * @param totalCalories - Calorías totales diarias
- * @returns Objeto con gramos de cada macronutriente
+ * DISTRIBUCIÓN ESTÁNDAR DE MACRONUTRIENTES:
+ * - Carbohidratos: 55% de calorías totales (4 kcal/g)
+ * - Proteínas: 20% de calorías totales (4 kcal/g)
+ * - Grasas: 25% de calorías totales (9 kcal/g)
+ * 
+ * CONVERSIÓN DE CALORÍAS A GRAMOS:
+ * Cada macronutriente tiene un valor calórico diferente:
+ * - 1g de carbohidratos = 4 kcal
+ * - 1g de proteína = 4 kcal
+ * - 1g de grasa = 9 kcal (más del doble que carbos/proteína)
+ * 
+ * EJEMPLO DE CÁLCULO para 2000 kcal:
+ * Carbohidratos: (2000 * 0.55) / 4 = 275g
+ * Proteínas: (2000 * 0.20) / 4 = 100g
+ * Grasas: (2000 * 0.25) / 9 = 55.5g ≈ 56g
+ * 
+ * @param totalCalories - Calorías totales diarias (ej: 2000)
+ * @returns Objeto con gramos objetivo de cada macronutriente
  */
 export function calculateMacroTargets(totalCalories: number): {
   carbs: number
   protein: number
   fat: number
 } {
-  // Carbohidratos: 55% de calorías / 4 kcal por gramo
+  // Carbohidratos: 55% de calorías totales / 4 kcal por gramo
+  // Ejemplo: (2000 * 0.55) / 4 = 275g de carbohidratos
   const carbs = Math.round((totalCalories * 0.55) / 4)
   
-  // Proteínas: 20% de calorías / 4 kcal por gramo
+  // Proteínas: 20% de calorías totales / 4 kcal por gramo
+  // Ejemplo: (2000 * 0.20) / 4 = 100g de proteína
   const protein = Math.round((totalCalories * 0.20) / 4)
   
-  // Grasas: 25% de calorías / 9 kcal por gramo
+  // Grasas: 25% de calorías totales / 9 kcal por gramo
+  // Ejemplo: (2000 * 0.25) / 9 = 56g de grasa
+  // Nota: Las grasas tienen más del doble de calorías por gramo
   const fat = Math.round((totalCalories * 0.25) / 9)
   
   return { carbs, protein, fat }
