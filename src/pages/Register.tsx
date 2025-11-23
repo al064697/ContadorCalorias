@@ -78,7 +78,7 @@ export default function Register() {
     <div className="auth-container">
       <div className="auth-card auth-card-wide">
         <div className="auth-header">
-          <h1>🥗 Crear cuenta</h1>
+          <h1>Crear cuenta</h1>
           <p>Completa tus datos para comenzar</p>
         </div>
 

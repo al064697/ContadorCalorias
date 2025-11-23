@@ -59,7 +59,7 @@ export default function MacronutrientBars({ consumed, target }: MacronutrientBar
       <div className="macro-item">
         <div className="macro-header">
           <span className="macro-label">
-            🍞 Carbohidratos
+            Carbohidratos
           </span>
           <span className="macro-values">
             {consumed.carbs}g / {target.carbs}g
@@ -78,7 +78,7 @@ export default function MacronutrientBars({ consumed, target }: MacronutrientBar
       <div className="macro-item">
         <div className="macro-header">
           <span className="macro-label">
-            🥩 Proteínas
+            Proteínas
           </span>
           <span className="macro-values">
             {consumed.protein}g / {target.protein}g
@@ -97,7 +97,7 @@ export default function MacronutrientBars({ consumed, target }: MacronutrientBar
       <div className="macro-item">
         <div className="macro-header">
           <span className="macro-label">
-            🥑 Grasas
+            Grasas
           </span>
           <span className="macro-values">
             {consumed.fat}g / {target.fat}g

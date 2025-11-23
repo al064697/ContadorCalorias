@@ -54,7 +54,7 @@ export default function Login() {
     <div className="auth-container">
       <div className="auth-card">
         <div className="auth-header">
-          <h1>🥗 Contador de Calorías</h1>
+          <h1>Contador de Calorías</h1>
           <p>Inicia sesión para comenzar</p>
         </div>
 

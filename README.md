@@ -1,10 +1,10 @@
-# 🥗 Contador de Calorías
+# Contador de Calorías
 
 Aplicación web para monitoreo de nutrición con cálculos metabólicos científicos. Desarrollada con React 18 + TypeScript.
 
 ---
 
-## 📚 Documentación Adicional
+## Documentación Adicional
 
 - **[Documentación](https://drive.google.com/file/d/1brPudKAjq-iHnfHoCAMhw8vOZXqpyIoF/view?usp=sharing)**: Documentación (PDF)
 - **[Manual de Usuario](https://drive.google.com/file/d/1B0EewkJ_KJza9Vf3rE2dIULF88g3pGUd/view?usp=sharing)**: Guía completa para usuarios finales (PDF)
@@ -12,7 +12,7 @@ Aplicación web para monitoreo de nutrición con cálculos metabólicos científ
 
 ---
 
-## 🎯 Características
+## Características
 
 ### Cálculos Metabólicos
 - **TMB (Tasa Metabólica Basal)**: Ecuación Harris-Benedict revisada
@@ -34,7 +34,7 @@ Aplicación web para monitoreo de nutrición con cálculos metabólicos científ
 
 ---
 
-## 🚀 Tecnologías
+## Tecnologías
 
 **Frontend:**
 - React 18.2 (Hooks, Context API)
@@ -53,7 +53,7 @@ Aplicación web para monitoreo de nutrición con cálculos metabólicos científ
 
 ---
 
-## 📦 Instalación
+## Instalación
 
 ```bash
 # Clonar repositorio
@@ -78,7 +78,7 @@ npm test
 
 ---
 
-## 🏗️ Arquitectura
+## Arquitectura
 
 ```
 src/
@@ -117,7 +117,7 @@ src/
 
 ---
 
-## 🔢 Fórmulas Principales
+## Fórmulas Principales
 
 ### Tasa Metabólica Basal (TMB)
 ```typescript
@@ -160,7 +160,7 @@ Grasas = (calorías × 0.25) / 9         // gramos
 
 ---
 
-## 🎨 Sistema de Iconos
+## Sistema de Iconos
 
 40+ iconos SVG personalizados organizados en 6 categorías:
 
@@ -177,7 +177,7 @@ Ver documentación completa en [ICONOS.md](./ICONOS.md)
 
 ---
 
-## 📊 Base de Datos de Alimentos
+## Base de Datos de Alimentos
 
 80+ alimentos organizados por categorías:
 
@@ -208,7 +208,7 @@ Ver documentación completa en [ICONOS.md](./ICONOS.md)
 
 ---
 
-## 🔐 Persistencia de Datos
+## Persistencia de Datos
 
 **LocalStorage** con claves organizadas:
 
@@ -232,7 +232,7 @@ Ver documentación completa en [ICONOS.md](./ICONOS.md)
 
 ---
 
-## 📱 Responsive Design
+## Responsive Design
 
 **Breakpoints:**
 - Desktop: > 1024px
@@ -247,7 +247,7 @@ Ver documentación completa en [ICONOS.md](./ICONOS.md)
 
 ---
 
-## 🎨 Temas
+## Temas
 
 **Variables CSS dinámicas:**
 
@@ -269,7 +269,7 @@ Ver documentación completa en [ICONOS.md](./ICONOS.md)
 
 ---
 
-## 🧪 Testing
+## Testing
 
 ```bash
 # Ejecutar todos los tests
@@ -286,7 +286,7 @@ npm run test:watch
 
 ---
 
-## 🚀 Deployment
+## Deployment
 
 **Vercel** (configuración en `vercel.json`):
 
@@ -307,7 +307,7 @@ npm run test:watch
 
 ---
 
-## 📝 Casos de Uso
+## Casos de Uso
 
 ### 1. Registro de Usuario Nuevo
 ```
@@ -331,7 +331,7 @@ Navegar a historial → Seleccionar día → Ver detalles expandidos → Analiza
 
 ---
 
-## 🤝 Contribuciones
+## Contribuciones
 
 Este proyecto es de código abierto. Para contribuir:
 
@@ -343,7 +343,7 @@ Este proyecto es de código abierto. Para contribuir:
 
 ---
 
-## 👤 Autor
+## Autor
 
 **Sebastian E Rios Fuentes**
 - GitHub: [@al064697](https://github.com/al064697)
@@ -351,4 +351,4 @@ Este proyecto es de código abierto. Para contribuir:
 
 ---
 
-**⭐ Si este proyecto te fue útil, considera darle una estrella en GitHub**
+Si este proyecto te fue útil, considera darle una estrella en GitHub

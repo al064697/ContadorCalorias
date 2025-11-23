@@ -98,7 +98,7 @@ export default function Settings() {
         activityLevel: formData.activityLevel
       })
 
-      setMessage('✅ Perfil actualizado correctamente')
+      setMessage('Perfil actualizado correctamente')
       
       // Limpiar mensaje después de 3 segundos
       setTimeout(() => setMessage(''), 3000)
@@ -146,7 +146,7 @@ export default function Settings() {
       users[userIndex].password = passwordData.newPassword
       localStorage.setItem('users', JSON.stringify(users))
       
-      setMessage('✅ Contraseña actualizada correctamente')
+      setMessage('Contraseña actualizada correctamente')
       setPasswordData({
         currentPassword: '',
         newPassword: '',
@@ -323,7 +323,7 @@ export default function Settings() {
         </Card>
 
         {/* Cambiar contraseña */}
-        <Card title="🔒 Cambiar contraseña">
+        <Card title="Cambiar contraseña">
           <form onSubmit={handleChangePassword} className="settings-form">
             <div className="form-group">
               <label htmlFor="currentPassword">Contraseña actual</label>
@@ -401,7 +401,7 @@ export default function Settings() {
         </Card>
 
         {/* Acciones de cuenta */}
-        <Card title="⚠️ Zona de peligro">
+        <Card title="Zona de peligro">
           <div className="danger-zone">
             <div className="danger-item">
               <div>

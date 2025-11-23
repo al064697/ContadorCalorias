@@ -6,7 +6,7 @@
 import React from 'react';
 import { Icon, IconProps } from './Icon';
 
-// 🟢 Verde - Consumo libre
+// Verde - Consumo libre
 export const GreenLightIcon: React.FC<IconProps> = (props) => (
   <Icon {...props}>
     <circle cx="12" cy="12" r="10" fill="#10b981" />
@@ -20,7 +20,7 @@ export const GreenLightIcon: React.FC<IconProps> = (props) => (
   </Icon>
 );
 
-// 🟡 Amarillo - Consumo moderado
+// Amarillo - Consumo moderado
 export const YellowLightIcon: React.FC<IconProps> = (props) => (
   <Icon {...props}>
     <circle cx="12" cy="12" r="10" fill="#f59e0b" />
@@ -33,7 +33,7 @@ export const YellowLightIcon: React.FC<IconProps> = (props) => (
   </Icon>
 );
 
-// 🔴 Rojo - Evitar o limitar
+// Rojo - Evitar o limitar
 export const RedLightIcon: React.FC<IconProps> = (props) => (
   <Icon {...props}>
     <circle cx="12" cy="12" r="10" fill="#ef4444" />

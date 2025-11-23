@@ -45,27 +45,27 @@ export const ACTIVITY_LABELS: Record<ActivityLevel, string> = {
  * Se usan para organizar y filtrar la base de datos de alimentos.
  */
 export const CATEGORY_LABELS = {
-  'fruits': '🍎 Frutas',
-  'vegetables': '🥗 Verduras',
-  'proteins': '🍗 Proteínas',
-  'grains': '🌾 Cereales y tubérculos',
-  'dairy': '🥛 Lácteos',
-  'snacks': '🍪 Snacks',
-  'beverages': '🥤 Bebidas',
-  'legumes': '🫘 Leguminosas',
-  'healthy-fats': '🥑 Grasas saludables',
-  'high-calorie-avoid': '⚠️ Alto en calorías (evitar)',
-  'free-foods': '✅ Alimentos libres',
-  'other': '🍽️ Otros'
+  'fruits': 'Frutas',
+  'vegetables': 'Verduras',
+  'proteins': 'Proteínas',
+  'grains': 'Cereales y tubérculos',
+  'dairy': 'Lácteos',
+  'snacks': 'Snacks',
+  'beverages': 'Bebidas',
+  'legumes': 'Leguminosas',
+  'healthy-fats': 'Grasas saludables',
+  'high-calorie-avoid': 'Alto en calorías (evitar)',
+  'free-foods': 'Alimentos libres',
+  'other': 'Otros'
 }
 
 /**
  * Etiquetas de semáforo nutricional.
  */
 export const TRAFFIC_LIGHT_LABELS = {
-  'green': '🟢 Consumo libre',
-  'yellow': '🟡 Consumo moderado',
-  'red': '🔴 Evitar o limitar'
+  'green': 'Consumo libre',
+  'yellow': 'Consumo moderado',
+  'red': 'Evitar o limitar'
 }
 
 /**

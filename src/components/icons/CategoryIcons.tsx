@@ -6,7 +6,7 @@
 import React from 'react';
 import { Icon, IconProps } from './Icon';
 
-// 🍎 Frutas
+// Frutas
 export const FruitIcon: React.FC<IconProps> = (props) => (
   <Icon {...props}>
     <path
@@ -25,7 +25,7 @@ export const FruitIcon: React.FC<IconProps> = (props) => (
   </Icon>
 );
 
-// 🥗 Verduras
+// Verduras
 export const VegetableIcon: React.FC<IconProps> = (props) => (
   <Icon {...props}>
     <path
@@ -51,7 +51,7 @@ export const VegetableIcon: React.FC<IconProps> = (props) => (
   </Icon>
 );
 
-// 🍗 Proteínas
+// Proteínas
 export const ProteinIcon: React.FC<IconProps> = (props) => (
   <Icon {...props}>
     <ellipse cx="12" cy="14" rx="8" ry="7" fill="currentColor" opacity="0.2" />
@@ -73,7 +73,7 @@ export const ProteinIcon: React.FC<IconProps> = (props) => (
   </Icon>
 );
 
-// 🌾 Cereales y granos
+// Cereales y granos
 export const GrainIcon: React.FC<IconProps> = (props) => (
   <Icon {...props}>
     <path
@@ -93,7 +93,7 @@ export const GrainIcon: React.FC<IconProps> = (props) => (
   </Icon>
 );
 
-// 🥛 Lácteos
+// Lácteos
 export const DairyIcon: React.FC<IconProps> = (props) => (
   <Icon {...props}>
     <path
@@ -112,7 +112,7 @@ export const DairyIcon: React.FC<IconProps> = (props) => (
   </Icon>
 );
 
-// 🫘 Leguminosas
+// Leguminosas
 export const LegumeIcon: React.FC<IconProps> = (props) => (
   <Icon {...props}>
     <path
@@ -138,7 +138,7 @@ export const LegumeIcon: React.FC<IconProps> = (props) => (
   </Icon>
 );
 
-// 🥑 Grasas saludables
+// Grasas saludables
 export const HealthyFatIcon: React.FC<IconProps> = (props) => (
   <Icon {...props}>
     <path
@@ -158,7 +158,7 @@ export const HealthyFatIcon: React.FC<IconProps> = (props) => (
   </Icon>
 );
 
-// 🥤 Bebidas
+// Bebidas
 export const BeverageIcon: React.FC<IconProps> = (props) => (
   <Icon {...props}>
     <path
@@ -184,7 +184,7 @@ export const BeverageIcon: React.FC<IconProps> = (props) => (
   </Icon>
 );
 
-// ⚠️ Alimentos altos en calorías
+// Alimentos altos en calorías
 export const HighCalorieIcon: React.FC<IconProps> = (props) => (
   <Icon {...props}>
     <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.1" />

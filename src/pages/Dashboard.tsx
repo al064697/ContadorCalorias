@@ -181,14 +181,14 @@ export default function Dashboard() {
    * qué tan bien el usuario está cumpliendo su meta calórica.
    * 
    * RANGOS Y SIGNIFICADOS:
-   * - 🟢 VERDE (90-110%): Rango óptimo
+   * - VERDE (90-110%): Rango óptimo
    *   El usuario está dentro del margen recomendado (±10% de la meta)
    *   
-   * - 🔴 ROJO (>110%): Exceso
+   * - ROJO (>110%): Exceso
    *   El usuario ha sobrepasado significativamente su meta
    *   Puede afectar objetivos de pérdida de peso
    *   
-   * - 🟡 AMARILLO (<90%): Insuficiente
+   * - AMARILLO (<90%): Insuficiente
    *   El usuario no ha consumido suficientes calorías
    *   Puede afectar energía y metabolismo
    * 
@@ -199,9 +199,9 @@ export default function Dashboard() {
    * 
    * EJEMPLO:
    * Meta: 2000 kcal
-   * - 1950 kcal (97.5%) → Verde ✅
-   * - 2300 kcal (115%) → Rojo ❌
-   * - 1700 kcal (85%) → Amarillo ⚠️
+   * - 1950 kcal (97.5%) → Verde
+   * - 2300 kcal (115%) → Rojo
+   * - 1700 kcal (85%) → Amarillo
    * 
    * @returns Color hexadecimal para el componente CircularProgressbar
    */
@@ -223,19 +223,19 @@ export default function Dashboard() {
    * 
    * CATEGORÍAS:
    * 
-   * 🟢 VERDE - Consumo libre:
+   * VERDE - Consumo libre:
    * - Alimentos nutritivos y bajos en calorías
    * - Verduras, frutas, proteínas magras
    * - Se pueden consumir en cantidades generosas
    * - Ejemplos: Lechuga, pollo sin piel, manzana
    * 
-   * 🟡 AMARILLO - Consumo moderado:
+   * AMARILLO - Consumo moderado:
    * - Alimentos nutritivos pero más calóricos
    * - Grasas saludables, carbohidratos complejos
    * - Controlar porciones
    * - Ejemplos: Aguacate, nueces, arroz integral
    * 
-   * 🔴 ROJO - Evitar o limitar:
+   * ROJO - Evitar o limitar:
    * - Altos en calorías, azúcares o grasas saturadas
    * - Consumo ocasional y en pequeñas cantidades
    * - Afectan objetivos de salud

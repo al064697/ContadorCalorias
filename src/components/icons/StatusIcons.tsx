@@ -6,7 +6,7 @@
 import React from 'react';
 import { Icon, IconProps } from './Icon';
 
-// 🎯 Objetivo alcanzado / Excelente
+// Objetivo alcanzado / Excelente
 export const TargetIcon: React.FC<IconProps> = (props) => (
   <Icon {...props}>
     <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" fill="none" />
@@ -15,7 +15,7 @@ export const TargetIcon: React.FC<IconProps> = (props) => (
   </Icon>
 );
 
-// 💪 Fortaleza / Bien hecho
+// Fortaleza / Bien hecho
 export const StrengthIcon: React.FC<IconProps> = (props) => (
   <Icon {...props}>
     <path
@@ -29,7 +29,7 @@ export const StrengthIcon: React.FC<IconProps> = (props) => (
   </Icon>
 );
 
-// 📈 Exceso calórico
+// Exceso calórico
 export const TrendUpIcon: React.FC<IconProps> = (props) => (
   <Icon {...props}>
     <path
@@ -43,7 +43,7 @@ export const TrendUpIcon: React.FC<IconProps> = (props) => (
   </Icon>
 );
 
-// 📉 Déficit calórico
+// Déficit calórico
 export const TrendDownIcon: React.FC<IconProps> = (props) => (
   <Icon {...props}>
     <path
@@ -57,7 +57,7 @@ export const TrendDownIcon: React.FC<IconProps> = (props) => (
   </Icon>
 );
 
-// 😅 Necesitas ajustar
+// Necesitas ajustar
 export const SweatIcon: React.FC<IconProps> = (props) => (
   <Icon {...props}>
     <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" fill="none" />
@@ -76,7 +76,7 @@ export const SweatIcon: React.FC<IconProps> = (props) => (
   </Icon>
 );
 
-// 🍎 Necesitas energía
+// Necesitas energía
 export const AppleIcon: React.FC<IconProps> = (props) => (
   <Icon {...props}>
     <path
@@ -90,7 +90,7 @@ export const AppleIcon: React.FC<IconProps> = (props) => (
   </Icon>
 );
 
-// ✅ Completado / Éxito
+// Completado / Éxito
 export const CheckCircleIcon: React.FC<IconProps> = (props) => (
   <Icon {...props}>
     <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" fill="none" />
@@ -104,7 +104,7 @@ export const CheckCircleIcon: React.FC<IconProps> = (props) => (
   </Icon>
 );
 
-// ⚡ Energía / Calorías
+// Energía / Calorías
 export const EnergyIcon: React.FC<IconProps> = (props) => (
   <Icon {...props}>
     <path
@@ -118,7 +118,7 @@ export const EnergyIcon: React.FC<IconProps> = (props) => (
   </Icon>
 );
 
-// 🔥 Calorías quemadas / Metabolismo
+// Calorías quemadas / Metabolismo
 export const FireIcon: React.FC<IconProps> = (props) => (
   <Icon {...props}>
     <path

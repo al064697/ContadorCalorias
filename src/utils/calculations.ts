@@ -259,20 +259,20 @@ export function getMotivationalMessage(consumed: number, target: number) {
   if (percentage >= 90 && percentage <= 110) {
     return {
       type: 'excellent' as const,
-      message: '¡Excelente! Vas por buen camino 💪',
-      emoji: '🎯'
+      message: '¡Excelente! Vas por buen camino',
+      emoji: ''
     }
   } else if (percentage > 110) {
     return {
       type: 'over' as const,
-      message: 'Te pasaste un poco, ¡mañana lo harás mejor! 😅',
-      emoji: '📈'
+      message: 'Te pasaste un poco, ¡mañana lo harás mejor!',
+      emoji: ''
     }
   } else {
     return {
       type: 'under' as const,
       message: '¡Necesitas más energía! Come algo nutritivo',
-      emoji: '📉'
+      emoji: ''
     }
   }
 }

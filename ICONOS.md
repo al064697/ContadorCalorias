@@ -1,10 +1,10 @@
-# 🎨 Sistema de Iconos Personalizados
+# Sistema de Iconos Personalizados
 
 El sistema de iconos del Contador de Calorías proporciona componentes SVG reutilizables y consistentes que reemplazan los emojis tradicionales, ofreciendo una identidad visual profesional y moderna.
 
 ---
 
-## 📂 Estructura del Sistema
+## Estructura del Sistema
 
 ```
 src/components/icons/
@@ -20,7 +20,7 @@ src/components/icons/
 
 ---
 
-## 🎯 Componente Base: Icon
+## Componente Base: Icon
 
 Todos los iconos heredan del componente `Icon` que proporciona props consistentes:
 
@@ -43,14 +43,14 @@ import { TargetIcon } from '@/components/icons';
 
 ---
 
-## 🚦 Iconos de Semáforo Nutricional
+## Iconos de Semáforo Nutricional
 
 Sistema de clasificación visual de alimentos basado en la Guía Nutricional Mexicana.
 
-### GreenLightIcon 🟢
+### GreenLightIcon
 **Uso:** Alimentos de consumo libre  
 **Características:** 
-- Círculo verde con check ✓
+- Círculo verde con check
 - Representa alimentos saludables y nutritivos
 - Color: `#10b981` (verde esmeralda)
 
@@ -60,7 +60,7 @@ Sistema de clasificación visual de alimentos basado en la Guía Nutricional Mex
 <GreenLightIcon size={20} />
 ```
 
-### YellowLightIcon 🟡
+### YellowLightIcon
 **Uso:** Alimentos de consumo moderado  
 **Características:**
 - Círculo amarillo con signo de exclamación !
@@ -73,7 +73,7 @@ Sistema de clasificación visual de alimentos basado en la Guía Nutricional Mex
 <YellowLightIcon size={20} />
 ```
 
-### RedLightIcon 🔴
+### RedLightIcon
 **Uso:** Alimentos para evitar o limitar  
 **Características:**
 - Círculo rojo con X
@@ -88,7 +88,7 @@ Sistema de clasificación visual de alimentos basado en la Guía Nutricional Mex
 
 ---
 
-## 🍎 Iconos de Categorías de Alimentos
+## Iconos de Categorías de Alimentos
 
 Representación visual de los 9 grupos alimenticios principales.
 
@@ -130,7 +130,7 @@ Representación visual de los 9 grupos alimenticios principales.
 
 ---
 
-## 📊 Iconos de Macronutrientes
+## Iconos de Macronutrientes
 
 Badges visuales para identificar macronutrientes en alimentos.
 
@@ -160,53 +160,53 @@ Badges visuales para identificar macronutrientes en alimentos.
 
 ---
 
-## ✅ Iconos de Estado y Feedback
+## Iconos de Estado y Feedback
 
 Mensajes motivacionales y estados del progreso.
 
-### TargetIcon 🎯
+### TargetIcon
 **Estado:** Objetivo alcanzado / Excelente  
 **Contexto:** Progreso en rango óptimo (90-110%)  
 **Diseño:** Diana con punto central
 
-### StrengthIcon 💪
+### StrengthIcon
 **Estado:** Fortaleza / Bien hecho  
 **Contexto:** Mensajes de ánimo  
 **Diseño:** Bícep estilizado
 
-### TrendUpIcon 📈
+### TrendUpIcon
 **Estado:** Exceso calórico  
 **Contexto:** Consumo >110% de meta  
 **Diseño:** Flecha ascendente
 
-### TrendDownIcon 📉
+### TrendDownIcon
 **Estado:** Déficit calórico  
 **Contexto:** Consumo <90% de meta  
 **Diseño:** Flecha descendente
 
-### AppleIcon 🍎
+### AppleIcon
 **Estado:** Necesitas energía  
 **Contexto:** Recordatorio de alimentación  
 **Diseño:** Manzana estilizada
 
-### EnergyIcon ⚡
+### EnergyIcon
 **Estado:** Energía / Calorías  
 **Contexto:** Representación de calorías  
 **Diseño:** Rayo eléctrico
 
-### FireIcon 🔥
+### FireIcon
 **Estado:** Metabolismo / Calorías quemadas  
 **Contexto:** TMB, TDEE, actividad  
 **Diseño:** Llama
 
-### CheckCircleIcon ✅
+### CheckCircleIcon
 **Estado:** Completado / Éxito  
 **Contexto:** Confirmaciones  
 **Diseño:** Círculo con check
 
 ---
 
-## 🧭 Iconos de Navegación y UI
+## Iconos de Navegación y UI
 
 Elementos de interfaz y acciones del usuario.
 
@@ -250,29 +250,29 @@ Elementos de interfaz y acciones del usuario.
 **Función:** Buscar  
 **Diseño:** Lupa
 
-### SunIcon ☀️
+### SunIcon
 **Función:** Tema claro  
 **Diseño:** Sol con rayos
 
-### MoonIcon 🌙
+### MoonIcon
 **Función:** Tema oscuro  
 **Diseño:** Luna creciente
 
-### ClockIcon 🕐
+### ClockIcon
 **Función:** Hora / Tiempo  
 **Diseño:** Reloj analógico
 
-### CalendarIcon 📅
+### CalendarIcon
 **Función:** Fecha  
 **Diseño:** Calendario
 
-### InfoIcon ℹ️
+### InfoIcon
 **Función:** Información  
 **Diseño:** i en círculo
 
 ---
 
-## 🎨 Uso en Componentes
+## Uso en Componentes
 
 ### Dashboard
 
@@ -321,7 +321,7 @@ Elementos de interfaz y acciones del usuario.
 
 ---
 
-## 🎨 Personalización de Estilos
+## Personalización de Estilos
 
 ### Variables CSS Utilizadas
 
@@ -355,7 +355,7 @@ Elementos de interfaz y acciones del usuario.
 
 ---
 
-## ✨ Ventajas del Sistema de Iconos SVG
+## Ventajas del Sistema de Iconos SVG
 
 ### 1. **Escalabilidad Perfecta**
 - Los iconos SVG se ven nítidos en cualquier tamaño
@@ -394,7 +394,7 @@ Elementos de interfaz y acciones del usuario.
 
 ---
 
-## 📝 Guía de Implementación
+## Guía de Implementación
 
 ### Paso 1: Importar
 
@@ -425,12 +425,12 @@ import {
 
 ---
 
-## 🔄 Migración de Emojis a Iconos
+## Migración de Emojis a Iconos
 
 ### Antes (Emojis)
 
 ```tsx
-<h2>🥗 Contador de Calorías</h2>
+<h2>Contador de Calorías</h2>
 <span>{getTrafficLightEmoji(entry.trafficLight)}</span>
 <button>× Eliminar</button>
 ```
@@ -451,7 +451,7 @@ import {
 
 ---
 
-## 🎯 Mejores Prácticas
+## Mejores Prácticas
 
 ### 1. Tamaños Recomendados
 - **Navegación:** 18px
@@ -477,7 +477,7 @@ import {
 
 ---
 
-## 📈 Roadmap Futuro
+## Roadmap Futuro
 
 - [ ] Iconos animados (loading spinners)
 - [ ] Variantes filled vs outlined
