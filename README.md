@@ -6,7 +6,8 @@ Aplicación web para monitoreo de nutrición con cálculos metabólicos científ
 
 ## 📚 Documentación Adicional
 
-- **[Manual de Usuario](https://drive.google.com/file/d/1mYYzaL5p9V7f0yO9RDDBIaZGV0ge70FR/view?usp=sharing)**: Guía completa para usuarios finales (PDF)
+- **[Documentación](https://drive.google.com/file/d/1brPudKAjq-iHnfHoCAMhw8vOZXqpyIoF/view?usp=sharing)**: Documentación (PDF)
+- **[Manual de Usuario](https://drive.google.com/file/d/1B0EewkJ_KJza9Vf3rE2dIULF88g3pGUd/view?usp=sharing)**: Guía completa para usuarios finales (PDF)
 - **[ICONOS.md](./ICONOS.md)**: Documentación del sistema de iconos SVG
 
 ---
