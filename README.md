@@ -4,6 +4,13 @@ Aplicación web para monitoreo de nutrición con cálculos metabólicos científ
 
 ---
 
+## 📚 Documentación Adicional
+
+- **[Manual de Usuario](https://drive.google.com/file/d/1mYYzaL5p9V7f0yO9RDDBIaZGV0ge70FR/view?usp=sharing)**: Guía completa para usuarios finales (PDF)
+- **[ICONOS.md](./ICONOS.md)**: Documentación del sistema de iconos SVG
+
+---
+
 ## 🎯 Características
 
 ### Cálculos Metabólicos
@@ -278,13 +285,6 @@ npm run test:watch
 
 ---
 
-## 📚 Documentación Adicional
-
-- **[MANUAL_DE_USUARIO.md](./MANUAL_DE_USUARIO.md)**: Guía completa para usuarios finales
-- **[ICONOS.md](./ICONOS.md)**: Documentación del sistema de iconos SVG
-
----
-
 ## 🚀 Deployment
 
 **Vercel** (configuración en `vercel.json`):
@@ -339,12 +339,6 @@ Este proyecto es de código abierto. Para contribuir:
 3. Commit cambios (`git commit -m 'feat: agregar funcionalidad'`)
 4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
 5. Abre un Pull Request
-
----
-
-## 📄 Licencia
-
-MIT License - Uso libre con atribución
 
 ---
 
